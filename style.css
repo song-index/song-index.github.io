@@ -1,0 +1,41 @@
+body {
+  font-family: Inter, Arial, sans-serif;
+  margin: 0;
+  padding: 24px;
+  background: #0f0f0f;
+  color: white;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+#song-table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tabulator {
+  border: none;
+  font-size: 14px;
+}
+
+.tabulator-header {
+  background: #181818;
+  color: white;
+  border: none;
+}
+
+.tabulator-row {
+  background: #121212;
+  color: white;
+}
+
+.tabulator-row:nth-child(even) {
+  background: #181818;
+}
+
+.tabulator-row:hover {
+  background: #222;
+}
