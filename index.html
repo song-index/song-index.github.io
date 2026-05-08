@@ -6,6 +6,7 @@
 
   <title>Song Library</title>
 
+  <!-- Tabulator -->
   <link
     href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css"
     rel="stylesheet"
@@ -30,16 +31,31 @@
       margin-bottom: 20px;
     }
 
-    #search-input {
-      width: 100%;
+    #controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    #search-input,
+    #sort-select {
       padding: 14px 16px;
       border: none;
       border-radius: 14px;
       background: #1a1a1a;
       color: white;
       font-size: 16px;
-      margin-bottom: 24px;
       outline: none;
+    }
+
+    #search-input {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    #sort-select {
+      width: 180px;
     }
 
     #search-input::placeholder {
@@ -52,13 +68,16 @@
       border: none;
       background: #121212;
       color: white;
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
     }
 
     .tabulator-header {
       background: #181818 !important;
       border-bottom: 1px solid #2a2a2a;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .tabulator-col {
@@ -70,6 +89,8 @@
     .tabulator-row {
       background: #121212;
       color: white;
+      min-height: 34px !important;
+      border-bottom: 1px solid #1f1f1f;
     }
 
     .tabulator-row:nth-child(even) {
@@ -78,6 +99,29 @@
 
     .tabulator-row:hover {
       background: #242424 !important;
+    }
+
+    .tabulator-cell {
+      border-right: 1px solid #1f1f1f !important;
+      padding: 6px 10px !important;
+    }
+
+    .tabulator-footer {
+      background: #181818;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .tabulator-page {
+      background: #242424 !important;
+      color: white !important;
+      border: none !important;
+      border-radius: 6px;
+      margin: 0 4px;
+    }
+
+    .tabulator-page.active {
+      background: white !important;
+      color: black !important;
     }
 
     /* MOBILE CARDS */
@@ -94,6 +138,7 @@
       font-size: 1.15rem;
       font-weight: 700;
       margin-bottom: 6px;
+      line-height: 1.3;
     }
 
     .song-artist {
@@ -125,6 +170,14 @@
       h1 {
         font-size: 2rem;
       }
+
+      #controls {
+        flex-direction: column;
+      }
+
+      #sort-select {
+        width: 100%;
+      }
     }
 
   </style>
@@ -134,13 +187,27 @@
 
   <h1>Song Library</h1>
 
-  <input
-    id="search-input"
-    type="text"
-    placeholder="Search songs, artists, albums..."
-  />
+  <div id="controls">
+
+    <input
+      id="search-input"
+      type="text"
+      placeholder="Search songs, artists, albums..."
+    />
+
+    <select id="sort-select">
+      <option value="">Sort By</option>
+      <option value="title">Title</option>
+      <option value="artist">Artist</option>
+      <option value="year">Year</option>
+      <option value="bpm">BPM</option>
+    </select>
+
+  </div>
 
   <div id="song-table"></div>
+
+  <!-- Scripts -->
 
   <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
 
@@ -155,9 +222,19 @@
 
       complete: function(results) {
 
-        const songs = results.data.filter(song => song.Title);
+        const songs = results.data.filter(song => {
 
-        const container = document.getElementById("song-table");
+          return (
+            song.Title &&
+            song.Title.trim() !== "" &&
+            song.Artist &&
+            song.Artist.trim() !== ""
+          );
+
+        });
+
+        const container =
+          document.getElementById("song-table");
 
         // MOBILE VIEW
 
@@ -167,7 +244,10 @@
 
             container.innerHTML = "";
 
-            const filtered = songs.filter(song => {
+            const sortValue =
+              document.getElementById("sort-select").value;
+
+            let filtered = songs.filter(song => {
 
               const s = search.toLowerCase();
 
@@ -178,6 +258,40 @@
               );
 
             });
+
+            // SORTING
+
+            if (sortValue === "title") {
+
+              filtered.sort((a, b) =>
+                a.Title.localeCompare(b.Title)
+              );
+
+            }
+
+            if (sortValue === "artist") {
+
+              filtered.sort((a, b) =>
+                a.Artist.localeCompare(b.Artist)
+              );
+
+            }
+
+            if (sortValue === "year") {
+
+              filtered.sort((a, b) =>
+                Number(a.Year) - Number(b.Year)
+              );
+
+            }
+
+            if (sortValue === "bpm") {
+
+              filtered.sort((a, b) =>
+                Number(a.BPM) - Number(b.BPM)
+              );
+
+            }
 
             filtered.forEach(song => {
 
@@ -208,15 +322,30 @@
               container.appendChild(card);
 
             });
+
           }
 
           renderCards();
+
+          // SEARCH
 
           document
             .getElementById("search-input")
             .addEventListener("input", function() {
 
               renderCards(this.value);
+
+          });
+
+          // SORT
+
+          document
+            .getElementById("sort-select")
+            .addEventListener("change", function() {
+
+              renderCards(
+                document.getElementById("search-input").value
+              );
 
           });
 
@@ -233,7 +362,7 @@
             layout: "fitColumns",
 
             pagination: true,
-            paginationSize: 25,
+            paginationSize: 50,
 
             movableColumns: true,
 
@@ -254,29 +383,35 @@
               {
                 title: "Album",
                 field: "Album",
-                minWidth: 300
+                minWidth: 320
               },
 
               {
                 title: "Year",
                 field: "Year",
-                width: 100
+                width: 100,
+                hozAlign: "center"
               },
 
               {
                 title: "Length",
                 field: "Length",
-                width: 100
+                width: 100,
+                hozAlign: "center"
               },
 
               {
                 title: "BPM",
                 field: "BPM",
-                width: 90
+                width: 90,
+                hozAlign: "center"
               }
 
             ]
+
           });
+
+          // SEARCH
 
           document
             .getElementById("search-input")
@@ -291,6 +426,29 @@
                   { field: "Album", type: "like", value: value }
                 ]
               ]);
+
+          });
+
+          // SORTING
+
+          document
+            .getElementById("sort-select")
+            .addEventListener("change", function() {
+
+              const value = this.value;
+
+              if (!value) {
+                table.clearSort();
+                return;
+              }
+
+              let field = "Title";
+
+              if (value === "artist") field = "Artist";
+              if (value === "year") field = "Year";
+              if (value === "bpm") field = "BPM";
+
+              table.setSort(field, "asc");
 
           });
 
