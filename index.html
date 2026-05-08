@@ -4,25 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <div class="hero">
-
-  <div class="hero-title">
-
-    <img
-      src="logo.png"
-      alt="Logo"
-      class="logo"
-    />
-
-    <h1>Song Library</h1>
-
-  </div>
-
-  <p>
-    4,000+ searchable tracks
-  </p>
-
-</div>
 
   <!-- Tabulator -->
   <link
@@ -35,7 +16,33 @@
     * {
       box-sizing: border-box;
     }
+.hero {
+  margin-bottom: 28px;
+}
 
+.hero-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  width: 72px !important;
+  height: 72px !important;
+
+  object-fit: cover;
+
+  border-radius: 16px;
+
+  display: block;
+
+  flex-shrink: 0;
+}
+
+.hero p {
+  margin-top: 8px;
+  color: #ff9f1c;
+}
 body {
   font-family: Inter, Arial, sans-serif;
   margin: 0;
@@ -208,7 +215,13 @@ body {
   box-shadow:
     0 0 0 3px rgba(255,159,28,0.15);
 }
+@media (min-width: 769px) {
 
+  #sort-select {
+    display: none;
+  }
+
+}
     @media (max-width: 768px) {
 
       body {
@@ -232,8 +245,25 @@ body {
 </head>
 
 <body>
+    <div class="hero">
 
-  <h1>Song Library</h1>
+  <div class="hero-title">
+
+    <img
+      src="logo.png"
+      alt="Logo"
+      class="logo"
+    />
+
+    <h1>Song Library</h1>
+
+  </div>
+
+  <p>
+    4,000+ searchable tracks
+  </p>
+
+</div>
 
   <div id="controls">
 
@@ -546,18 +576,42 @@ if (sortValue === "bpm-desc") {
 
               const value = this.value;
 
-              if (!value) {
-                table.clearSort();
-                return;
-              }
+if (!value) {
+  table.clearSort();
+  return;
+}
 
-              let field = "Title";
+if (value === "title-asc") {
+  table.setSort("Title", "asc");
+}
 
-              if (value === "artist") field = "Artist";
-              if (value === "year") field = "Year";
-              if (value === "bpm") field = "BPM";
+if (value === "title-desc") {
+  table.setSort("Title", "desc");
+}
 
-              table.setSort(field, "asc");
+if (value === "artist-asc") {
+  table.setSort("Artist", "asc");
+}
+
+if (value === "artist-desc") {
+  table.setSort("Artist", "desc");
+}
+
+if (value === "year-asc") {
+  table.setSort("Year", "asc");
+}
+
+if (value === "year-desc") {
+  table.setSort("Year", "desc");
+}
+
+if (value === "bpm-asc") {
+  table.setSort("BPM", "asc");
+}
+
+if (value === "bpm-desc") {
+  table.setSort("BPM", "desc");
+}
 
           });
 
