@@ -195,13 +195,43 @@
       placeholder="Search songs, artists, albums..."
     />
 
-    <select id="sort-select">
-      <option value="">Sort By</option>
-      <option value="title">Title</option>
-      <option value="artist">Artist</option>
-      <option value="year">Year</option>
-      <option value="bpm">BPM</option>
-    </select>
+<select id="sort-select">
+
+  <option value="">Sort By</option>
+
+  <option value="title-asc">
+    Title (A-Z)
+  </option>
+
+  <option value="title-desc">
+    Title (Z-A)
+  </option>
+
+  <option value="artist-asc">
+    Artist (A-Z)
+  </option>
+
+  <option value="artist-desc">
+    Artist (Z-A)
+  </option>
+
+  <option value="year-desc">
+    Year (Newest)
+  </option>
+
+  <option value="year-asc">
+    Year (Oldest)
+  </option>
+
+  <option value="bpm-desc">
+    BPM (Highest)
+  </option>
+
+  <option value="bpm-asc">
+    BPM (Lowest)
+  </option>
+
+</select>
 
   </div>
 
@@ -260,38 +290,69 @@
             });
 
             // SORTING
+if (sortValue === "title-asc") {
 
-            if (sortValue === "title") {
+  filtered.sort((a, b) =>
+    a.Title.localeCompare(b.Title)
+  );
 
-              filtered.sort((a, b) =>
-                a.Title.localeCompare(b.Title)
-              );
+}
 
-            }
+if (sortValue === "title-desc") {
 
-            if (sortValue === "artist") {
+  filtered.sort((a, b) =>
+    b.Title.localeCompare(a.Title)
+  );
 
-              filtered.sort((a, b) =>
-                a.Artist.localeCompare(b.Artist)
-              );
+}
 
-            }
+if (sortValue === "artist-asc") {
 
-            if (sortValue === "year") {
+  filtered.sort((a, b) =>
+    a.Artist.localeCompare(b.Artist)
+  );
 
-              filtered.sort((a, b) =>
-                Number(a.Year) - Number(b.Year)
-              );
+}
 
-            }
+if (sortValue === "artist-desc") {
 
-            if (sortValue === "bpm") {
+  filtered.sort((a, b) =>
+    b.Artist.localeCompare(a.Artist)
+  );
 
-              filtered.sort((a, b) =>
-                Number(a.BPM) - Number(b.BPM)
-              );
+}
 
-            }
+if (sortValue === "year-asc") {
+
+  filtered.sort((a, b) =>
+    Number(a.Year) - Number(b.Year)
+  );
+
+}
+
+if (sortValue === "year-desc") {
+
+  filtered.sort((a, b) =>
+    Number(b.Year) - Number(a.Year)
+  );
+
+}
+
+if (sortValue === "bpm-asc") {
+
+  filtered.sort((a, b) =>
+    Number(a.BPM) - Number(b.BPM)
+  );
+
+}
+
+if (sortValue === "bpm-desc") {
+
+  filtered.sort((a, b) =>
+    Number(b.BPM) - Number(a.BPM)
+  );
+
+}
 
             filtered.forEach(song => {
 
