@@ -1,37 +1,148 @@
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
 <script>
 Papa.parse("songs.csv", {
   download: true,
   header: true,
+
   complete: function(results) {
 
-    new Tabulator("#song-table", {
-      data: results.data,
+    const songs = results.data.filter(song => song.Title);
 
-      layout: "fitColumns",
+    // MOBILE CARD VIEW
 
-      responsiveLayout: "collapse",
+    if (window.innerWidth < 768) {
 
-      pagination: true,
-      paginationSize: 25,
+      const container = document.getElementById("song-table");
 
-      movableColumns: true,
+      function renderCards(filter = "") {
 
-      initialSort: [
-        { column: "Artist", dir: "asc" }
-      ],
+        container.innerHTML = "";
 
-      columns: [
-        { title: "Title", field: "Title" },
-        { title: "Artist", field: "Artist" },
-        { title: "Album", field: "Album" },
-        { title: "Year", field: "Year", width: 90 },
-        { title: "Length", field: "Length", width: 100 },
-        { title: "BPM", field: "BPM", width: 90 }
-      ]
-    });
+        const filtered = songs.filter(song => {
 
+          const search = filter.toLowerCase();
+
+          return (
+            song.Title?.toLowerCase().includes(search) ||
+            song.Artist?.toLowerCase().includes(search) ||
+            song.Album?.toLowerCase().includes(search)
+          );
+        });
+
+        filtered.forEach(song => {
+
+          const card = document.createElement("div");
+
+          card.className = "song-card";
+
+          card.innerHTML = `
+            <div class="song-title">${song.Title || ""}</div>
+
+            <div class="song-artist">
+              ${song.Artist || ""}
+            </div>
+
+            <div class="song-meta">
+              <span>${song.Year || ""}</span>
+              <span>${song.Length || ""}</span>
+              <span>${song.BPM || ""} BPM</span>
+            </div>
+
+            <div class="song-album">
+              ${song.Album || ""}
+            </div>
+          `;
+
+          container.appendChild(card);
+
+        });
+      }
+
+      renderCards();
+
+      document
+        .getElementById("search-input")
+        .addEventListener("keyup", function() {
+
+          renderCards(this.value);
+
+      });
+
+    }
+
+    // DESKTOP TABLE VIEW
+
+    else {
+
+      const table = new Tabulator("#song-table", {
+
+        data: songs,
+
+        layout: "fitColumns",
+
+        pagination: true,
+        paginationSize: 25,
+
+        movableColumns: true,
+
+        initialSort: [
+          { column: "Artist", dir: "asc" }
+        ],
+
+        columns: [
+          {
+            title: "Title",
+            field: "Title",
+            minWidth: 220
+          },
+
+          {
+            title: "Artist",
+            field: "Artist",
+            minWidth: 220
+          },
+
+          {
+            title: "Album",
+            field: "Album",
+            minWidth: 300
+          },
+
+          {
+            title: "Year",
+            field: "Year",
+            width: 100
+          },
+
+          {
+            title: "Length",
+            field: "Length",
+            width: 110
+          },
+
+          {
+            title: "BPM",
+            field: "BPM",
+            width: 90
+          }
+        ]
+      });
+
+      document
+        .getElementById("search-input")
+        .addEventListener("keyup", function() {
+
+          const value = this.value;
+
+          table.setFilter([
+            [
+              { field: "Title", type: "like", value: value },
+              { field: "Artist", type: "like", value: value },
+              { field: "Album", type: "like", value: value }
+            ]
+          ]);
+
+      });
+    }
   }
 });
 </script>
