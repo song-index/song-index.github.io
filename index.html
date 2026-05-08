@@ -5,75 +5,230 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Song Library</title>
 
+  <!-- Tabulator CSS -->
   <link
     href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css"
     rel="stylesheet"
   />
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #111;
+      margin: 0;
+      padding: 24px;
+      font-family: Inter, Arial, sans-serif;
+      background: #0f0f0f;
       color: white;
     }
 
     h1 {
+      margin-top: 0;
       margin-bottom: 20px;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    #search-input {
+      width: 100%;
+      max-width: 500px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+
+      border: none;
+      border-radius: 12px;
+
+      background: #1d1d1d;
+      color: white;
+
+      font-size: 16px;
+      outline: none;
+    }
+
+    #search-input::placeholder {
+      color: #888;
     }
 
     #song-table {
-      background: white;
-      color: black;
-      border-radius: 8px;
+      border-radius: 12px;
       overflow: hidden;
+    }
+
+    .tabulator {
+      border: none;
+      background: #121212;
+      color: white;
+      font-size: 14px;
+    }
+
+    .tabulator-header {
+      background: #181818 !important;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .tabulator-col {
+      background: #181818 !important;
+      color: white;
+      border-right: 1px solid #2a2a2a !important;
+    }
+
+    .tabulator-row {
+      background: #121212;
+      color: white;
+      border-bottom: 1px solid #1f1f1f;
+    }
+
+    .tabulator-row:nth-child(even) {
+      background: #181818;
+    }
+
+    .tabulator-row:hover {
+      background: #242424 !important;
+    }
+
+    .tabulator-cell {
+      border-right: 1px solid #1f1f1f !important;
+    }
+
+    .tabulator-footer {
+      background: #181818;
+      color: white;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .tabulator-page {
+      background: #242424 !important;
+      color: white !important;
+      border: none !important;
+      border-radius: 6px;
+      margin: 0 4px;
+    }
+
+    .tabulator-page.active {
+      background: #ffffff !important;
+      color: black !important;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .tabulator {
+        font-size: 13px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<h1>Song Library</h1>
+  <h1>Song Library</h1>
 
-<div id="song-table"></div>
+  <input
+    type="text"
+    id="search-input"
+    placeholder="Search songs, artists, albums..."
+  />
 
-<script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+  <div id="song-table"></div>
 
-<script>
-fetch("songs.csv")
-  .then(response => response.text())
-  .then(csv => {
-    const rows = csv.split("\n").slice(1);
+  <!-- Tabulator -->
+  <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
 
-    const data = rows.map(row => {
-      const cols = row.split(",");
+  <!-- PapaParse -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
-      return {
-        title: cols[0],
-        artist: cols[1],
-        album: cols[2],
-        year: cols[3],
-        length: cols[4],
-        bpm: cols[5]
-      };
+  <script>
+    Papa.parse("songs.csv", {
+      download: true,
+      header: true,
+
+      complete: function(results) {
+
+        const table = new Tabulator("#song-table", {
+
+          data: results.data,
+
+          layout: "fitColumns",
+
+          responsiveLayout: "collapse",
+
+          pagination: true,
+          paginationSize: 25,
+
+          movableColumns: true,
+
+          initialSort: [
+            { column: "Artist", dir: "asc" }
+          ],
+
+          columns: [
+            {
+              title: "Title",
+              field: "Title",
+              minWidth: 220
+            },
+
+            {
+              title: "Artist",
+              field: "Artist",
+              minWidth: 220
+            },
+
+            {
+              title: "Album",
+              field: "Album",
+              minWidth: 300
+            },
+
+            {
+              title: "Year",
+              field: "Year",
+              width: 100
+            },
+
+            {
+              title: "Length",
+              field: "Length",
+              width: 110
+            },
+
+            {
+              title: "BPM",
+              field: "BPM",
+              width: 90
+            }
+          ]
+        });
+
+        // SEARCH
+
+        document
+          .getElementById("search-input")
+          .addEventListener("keyup", function() {
+
+            const value = this.value;
+
+            table.setFilter([
+              [
+                { field: "Title", type: "like", value: value },
+                { field: "Artist", type: "like", value: value },
+                { field: "Album", type: "like", value: value }
+              ]
+            ]);
+
+        });
+
+      }
     });
-
-    new Tabulator("#song-table", {
-      data: data,
-      layout: "fitColumns",
-      responsiveLayout: "collapse",
-      pagination: true,
-      paginationSize: 25,
-      columns: [
-        { title: "Title", field: "title" },
-        { title: "Artist", field: "artist" },
-        { title: "Album", field: "album" },
-        { title: "Year", field: "year" },
-        { title: "Length", field: "length" },
-        { title: "BPM", field: "bpm" }
-      ]
-    });
-  });
-</script>
+  </script>
 
 </body>
 </html>
