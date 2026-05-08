@@ -72,3 +72,48 @@ h1 {
   font-size: 0.9rem;
   line-height: 1.4;
 }
+.hero {
+  margin-bottom: 28px;
+}
+
+.hero-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  width: 72px;
+  height: 72px;
+
+  object-fit: cover;
+
+  border-radius: 16px;
+
+  display: block;
+}
+
+.hero p {
+  margin-top: 8px;
+  color: #888;
+}
+@media (max-width: 768px) {
+
+  body {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .hero-title {
+    gap: 12px;
+  }
+
+  .logo {
+    width: 56px;
+    height: 56px;
+  }
+
+}
