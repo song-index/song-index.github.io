@@ -39,3 +39,36 @@ h1 {
 .tabulator-row:hover {
   background: #222;
 }
+.song-card {
+  background: #181818;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+  border: 1px solid #242424;
+}
+
+.song-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.song-artist {
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+.song-meta {
+  display: flex;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: #999;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.song-album {
+  color: #777;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
