@@ -455,6 +455,14 @@ document
 
       genres.forEach(genre => {
 
+        const id =
+          safeId(genre.name);
+
+        const content =
+          document.getElementById(
+            "content-" + id
+          );
+
         const songs =
           tables[genre.name] || [];
 
@@ -469,18 +477,59 @@ document
 
         });
 
-        const id =
-          safeId(genre.name);
-
         document.getElementById(
           "count-" + id
         ).textContent =
           filtered.length + " tracks";
 
+        // AUTO OPEN MATCHING FOLDERS
+
+        if (
+          value &&
+          filtered.length > 0
+        ) {
+
+          content.classList.add("open");
+
+          // CREATE TABLE IF NEEDED
+
+          if (
+            content.dataset.loaded !== "true"
+          ) {
+
+            toggleGenre(genre.name);
+
+          }
+
+          // FILTER TABLE
+
+          Tabulator.findTable(
+            "#table-" + id
+          )[0].setData(filtered);
+
+        }
+
+        // RESET WHEN SEARCH CLEARED
+
+        else if (!value) {
+
+          if (
+            Tabulator.findTable(
+              "#table-" + id
+            )[0]
+          ) {
+
+            Tabulator.findTable(
+              "#table-" + id
+            )[0].setData(songs);
+
+          }
+
+        }
+
       });
 
   });
-
 loadGenres();
 
 </script>
