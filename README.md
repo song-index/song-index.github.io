@@ -116,6 +116,10 @@ repo/
     ├── Bob Marley.csv
     └── ... (one CSV file per genre)
 ```
+## If you want to change the logo
+
+Use any image that is 1:1 format (doesn't have to be exact)
+Name it "logo.png" and upload the file to the github repo.
 
 ---
 
