@@ -73,7 +73,7 @@ h1 {
   box-shadow: 0 0 0 3px rgba(255,159,28,0.15);
 }
 
-/* FOLDERS */
+/* GENRES */
 
 .genre-block {
   margin-bottom: 14px;
@@ -175,6 +175,31 @@ h1 {
   color: black !important;
 }
 
+/* TOUR TIPS */
+
+.tour-tip {
+
+  position: absolute;
+
+  background: #ff9f1c;
+
+  color: black;
+
+  padding: 12px 14px;
+
+  border-radius: 12px;
+
+  font-weight: 700;
+
+  max-width: 260px;
+
+  z-index: 10000;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35);
+
+}
+
 /* MOBILE */
 
 @media (max-width: 768px) {
@@ -192,119 +217,8 @@ h1 {
     height: 56px;
   }
 
-  .genre-header {
-    padding: 14px;
-  }
-
-}
-/* TUTORIAL */
-
-#tutorial-overlay {
-
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0,0,0,0.72);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 9999;
-
 }
 
-#tutorial-box {
-
-  width: min(420px, 92vw);
-
-  background: #151515;
-
-  border: 1px solid #2a2a2a;
-
-  border-radius: 18px;
-
-  padding: 28px;
-
-  box-shadow:
-    0 20px 50px rgba(0,0,0,0.5);
-
-  text-align: center;
-
-}
-
-#tutorial-box h2 {
-
-  margin-top: 0;
-  color: #ffb347;
-
-}
-
-#tutorial-box p {
-
-  color: #d0d0d0;
-  line-height: 1.6;
-
-}
-
-#close-tutorial {
-
-  margin-top: 18px;
-
-  border: none;
-
-  background: #ff9f1c;
-
-  color: black;
-
-  padding: 12px 18px;
-
-  border-radius: 12px;
-
-  font-weight: 700;
-
-  cursor: pointer;
-
-  font-size: 15px;
-
-}
-.tour-tip {
-
-  position: absolute;
-
-  background: #ff9f1c;
-
-  color: black;
-
-  padding: 12px 14px;
-
-  border-radius: 12px;
-
-  font-weight: 700;
-
-  max-width: 240px;
-
-  z-index: 10000;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.35);
-
-}
-
-.tour-tip::after {
-
-  content: "";
-
-  position: absolute;
-
-  border: 10px solid transparent;
-
-}
-#close-tutorial:hover {
-
-  filter: brightness(1.1);
-
-}
 </style>
 </head>
 
@@ -336,33 +250,9 @@ h1 {
   type="text"
   placeholder="Search songs, artists, albums..."
 />
-<div id="tutorial-overlay">
 
-  <div id="tutorial-box">
-
-    <h2>🎵 How To Request Songs</h2>
-
-    <p>
-      Browse genres by clicking the folders.
-    </p>
-
-    <p>
-      Use the search bar to quickly find songs,
-      artists, or albums.
-    </p>
-
-    <p>
-      Once you find a song, tell the DJ the title!
-    </p>
-
-    <button id="close-tutorial">
-      Got it
-    </button>
-
-  </div>
-
-</div>
 <div id="genres-container"></div>
+
 <div
   class="tour-tip"
   id="search-tip"
@@ -374,6 +264,7 @@ h1 {
 >
   🔎 Search for songs, artists, or albums here
 </div>
+
 <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
@@ -392,47 +283,75 @@ function safeId(name) {
 
 async function loadGenres() {
 
-  const response = await fetch("genres.json");
+  try {
 
-  genres = await response.json();
+    const response =
+      await fetch("genres.json");
 
-  buildFolders();
+    genres = await response.json();
 
-  let totalSongs = 0;
+    buildFolders();
 
-  for (const genre of genres) {
+    let totalSongs = 0;
 
-    Papa.parse(genre.file, {
+    for (const genre of genres) {
 
-      download: true,
-      header: true,
-      skipEmptyLines: true,
+      Papa.parse(genre.file, {
 
-      complete: function(results) {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
 
-        const songs = results.data.filter(song => {
+        complete: function(results) {
 
-          return song.Title && song.Title.trim() !== "";
+          const songs =
+            results.data.filter(song => {
 
-        });
+              return (
+                song.Title &&
+                song.Title.trim() !== ""
+              );
 
-        totalSongs += songs.length;
+            });
 
-        document.getElementById(
-          "count-" + safeId(genre.name)
-        ).textContent =
-          songs.length + " tracks";
+          tables[genre.name] = songs;
 
-        document.getElementById("subtitle")
-          .textContent =
-          totalSongs.toLocaleString() +
-          " searchable tracks";
+          totalSongs += songs.length;
 
-        tables[genre.name] = songs;
+          document.getElementById(
+            "count-" + safeId(genre.name)
+          ).textContent =
+            songs.length + " tracks";
 
-      }
+          document.getElementById(
+            "subtitle"
+          ).textContent =
+            totalSongs.toLocaleString() +
+            " searchable tracks";
 
-    });
+        },
+
+        error: function() {
+
+          document.getElementById(
+            "count-" + safeId(genre.name)
+          ).textContent =
+            "Failed to load";
+
+        }
+
+      });
+
+    }
+
+  } catch (err) {
+
+    console.error(err);
+
+    document.getElementById(
+      "subtitle"
+    ).textContent =
+      "Failed to load collection";
 
   }
 
@@ -441,7 +360,9 @@ async function loadGenres() {
 function buildFolders() {
 
   const container =
-    document.getElementById("genres-container");
+    document.getElementById(
+      "genres-container"
+    );
 
   container.innerHTML = "";
 
@@ -495,6 +416,121 @@ function buildFolders() {
 
 }
 
+function showSortTip(id) {
+
+  const oldTip =
+    document.getElementById(
+      "sort-tip"
+    );
+
+  if (oldTip) {
+    oldTip.remove();
+  }
+
+  setTimeout(() => {
+
+    const header =
+      document.querySelector(
+        "#table-" + id + " .tabulator-header"
+      );
+
+    if (!header) return;
+
+    const rect =
+      header.getBoundingClientRect();
+
+    const tip =
+      document.createElement("div");
+
+    tip.id = "sort-tip";
+
+    tip.className = "tour-tip";
+
+    tip.innerHTML =
+      "⬆️ Click these column names to sort songs";
+
+    tip.style.top =
+      (window.scrollY + rect.top - 70) + "px";
+
+    tip.style.left =
+      (window.scrollX + rect.left + 20) + "px";
+
+    document.body.appendChild(tip);
+
+    setTimeout(() => {
+
+      tip.remove();
+
+    }, 5000);
+
+  }, 300);
+
+}
+
+function createTable(id, songs) {
+
+  return new Tabulator(
+    "#table-" + id,
+    {
+
+      data: songs,
+
+      layout: "fitColumns",
+
+      pagination: true,
+
+      paginationSize: 50,
+
+      movableColumns: true,
+
+      columns: [
+
+        {
+          title: "Title",
+          field: "Title",
+          minWidth: 220
+        },
+
+        {
+          title: "Artist",
+          field: "Artist",
+          minWidth: 220
+        },
+
+        {
+          title: "Album",
+          field: "Album",
+          minWidth: 300
+        },
+
+        {
+          title: "Year",
+          field: "Year",
+          width: 100,
+          hozAlign: "center"
+        },
+
+        {
+          title: "Length",
+          field: "Length",
+          width: 100,
+          hozAlign: "center"
+        },
+
+        {
+          title: "BPM",
+          field: "BPM",
+          width: 90,
+          hozAlign: "center"
+        }
+
+      ]
+
+    }
+  );
+
+}
+
 function toggleGenre(name) {
 
   const id = safeId(name);
@@ -517,74 +553,23 @@ function toggleGenre(name) {
 
   content.classList.add("open");
 
+  const songs =
+    tables[name] || [];
+
   if (
-    content.dataset.loaded === "true"
-  ) return;
+    content.dataset.loaded !== "true"
+  ) {
 
-  const songs = tables[name] || [];
+    createTable(id, songs);
 
-  new Tabulator(
-    "#table-" + id,
-    {
+    content.dataset.loaded = "true";
 
-      data: songs,
+  }
 
-      layout: "fitColumns",
-
-      pagination: true,
-      paginationSize: 50,
-
-      movableColumns: true,
-
-      columns: [
-
-        {
-          title: "Title",
-          field: "Title",
-          minWidth: 220
-        },
-
-        {
-          title: "Artist",
-          field: "Artist",
-          minWidth: 220
-        },
-
-        {
-          title: "Album",
-          field: "Album",
-          minWidth: 300
-        },
-
-        {
-          title: "Year",
-          field: "Year",
-          width: 100,
-          hozAlign: "center"
-        },
-
-        {
-          title: "Length",
-          field: "Length",
-          width: 100,
-          hozAlign: "center"
-        },
-
-        {
-          title: "BPM",
-          field: "BPM",
-          width: 90,
-          hozAlign: "center"
-        }
-
-      ]
-
-    }
-  );
-
-  content.dataset.loaded = "true";
+  showSortTip(id);
 
 }
+
 let searchTimeout;
 
 document
@@ -597,180 +582,122 @@ document
 
       const input = this;
 
-      searchTimeout = setTimeout(() => {
+      searchTimeout =
+        setTimeout(() => {
 
-        const value =
-          input.value.toLowerCase().trim();
+          const value =
+            input.value
+              .toLowerCase()
+              .trim();
 
-        genres.forEach(genre => {
+          genres.forEach(genre => {
 
-          const id =
-            safeId(genre.name);
+            const id =
+              safeId(genre.name);
 
-          const block =
-            document
-              .getElementById(
+            const block =
+              document
+                .getElementById(
+                  "content-" + id
+                )
+                .parentElement;
+
+            const content =
+              document.getElementById(
                 "content-" + id
-              )
-              .parentElement;
+              );
 
-          const content =
+            const songs =
+              tables[genre.name] || [];
+
+            const filtered =
+              value
+                ? songs.filter(song => {
+
+                    return (
+                      song.Title?.toLowerCase().includes(value) ||
+                      song.Artist?.toLowerCase().includes(value) ||
+                      song.Album?.toLowerCase().includes(value)
+                    );
+
+                  })
+                : songs;
+
             document.getElementById(
-              "content-" + id
-            );
+              "count-" + id
+            ).textContent =
+              filtered.length + " tracks";
 
-          const songs =
-            tables[genre.name] || [];
+            if (
+              value &&
+              filtered.length === 0
+            ) {
 
-          const filtered =
-            value
-              ? songs.filter(song => {
+              block.style.display = "none";
 
-                  return (
-                    song.Title?.toLowerCase().includes(value) ||
-                    song.Artist?.toLowerCase().includes(value) ||
-                    song.Album?.toLowerCase().includes(value)
-                  );
+              content.classList.remove("open");
 
-                })
-              : songs;
+              return;
 
-          document.getElementById(
-            "count-" + id
-          ).textContent =
-            filtered.length + " tracks";
+            }
 
-          if (
-            value &&
-            filtered.length === 0
-          ) {
+            block.style.display = "block";
 
-            block.style.display = "none";
+            let table =
+              Tabulator.findTable(
+                "#table-" + id
+              )[0];
 
-            content.classList.remove("open");
+            if (!table) {
 
-            return;
+              table =
+                createTable(
+                  id,
+                  filtered
+                );
 
-          }
+            } else {
 
-          block.style.display = "block";
+              table.setData(filtered);
 
-          let table =
-  Tabulator.findTable(
-    "#table-" + id
-  )[0];
+            }
 
-if (!table) {
+            if (value) {
 
-  table = new Tabulator(
-    "#table-" + id,
-    {
+              content.classList.add("open");
 
-      data: filtered,
+            } else {
 
-      layout: "fitColumns",
+              content.classList.remove("open");
 
-      pagination: true,
-      paginationSize: 50,
+            }
 
-      movableColumns: true,
+          });
 
-      columns: [
-
-        {
-          title: "Title",
-          field: "Title",
-          minWidth: 220
-        },
-
-        {
-          title: "Artist",
-          field: "Artist",
-          minWidth: 220
-        },
-
-        {
-          title: "Album",
-          field: "Album",
-          minWidth: 300
-        },
-
-        {
-          title: "Year",
-          field: "Year",
-          width: 100,
-          hozAlign: "center"
-        },
-
-        {
-          title: "Length",
-          field: "Length",
-          width: 100,
-          hozAlign: "center"
-        },
-
-        {
-          title: "BPM",
-          field: "BPM",
-          width: 90,
-          hozAlign: "center"
-        }
-
-      ]
-
-    }
-  );
-
-} else {
-
-  table.setData(filtered);
-
-}
-          if (value) {
-
-            content.classList.add("open");
-
-          } else {
-
-            content.classList.remove("open");
-
-          }
-
-        });
-
-      }, 180);
+        }, 180);
 
     }
 
-  );
-
-document
-  .getElementById("close-tutorial")
-  .addEventListener(
-    "click",
-    function() {
-
-      document
-        .getElementById("tutorial-overlay")
-        .style.display = "none";
-
-    }
   );
 
 setTimeout(() => {
 
   const tip =
-    document.getElementById("search-tip");
+    document.getElementById(
+      "search-tip"
+    );
 
   if (tip) {
 
-    tip.style.display = "none";
+    tip.remove();
 
   }
 
 }, 7000);
 
 loadGenres();
+
 </script>
+
 </body>
 </html>
