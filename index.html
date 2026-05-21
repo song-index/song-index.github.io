@@ -259,6 +259,8 @@ async function toggleGenre(genreName) {
 
   if (cache[genreName] !== undefined) {
     renderTable(genreName, cache[genreName]);
+    // Redraw after container becomes visible (fixes blank table on expand)
+    setTimeout(() => { if (tables[genreName]) tables[genreName].redraw(true); }, 50);
     return;
   }
 
@@ -289,6 +291,8 @@ async function toggleGenre(genreName) {
 
   cache[genreName] = songs;
   renderTable(genreName, songs);
+  // Redraw after container becomes visible (fixes blank table on expand)
+  setTimeout(() => { if (tables[genreName]) tables[genreName].redraw(true); }, 50);
 }
 
 // ─── SEARCH ──────────────────────────────────────────────────────────────────
