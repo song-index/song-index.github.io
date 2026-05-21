@@ -597,20 +597,31 @@ document
 
       else {
 
-        content.classList.remove("open");
+  // SHOW FOLDER AGAIN
+  block.style.display = "block";
 
-        const table =
-          Tabulator.findTable(
-            "#table-" + id
-          )[0];
+  // CLOSE FOLDER
+  content.classList.remove("open");
 
-        if (table) {
+  const table =
+    Tabulator.findTable(
+      "#table-" + id
+    )[0];
 
-          table.setData(songs);
+  // RESTORE ORIGINAL DATA
+  if (table) {
 
-        }
+    table.clearData();
 
-      }
+    table.setData(songs);
+
+    table.clearFilter();
+
+    table.redraw(true);
+
+  }
+
+}
 
     });
 
