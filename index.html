@@ -446,8 +446,21 @@ function showSortTip(id) {
 
     tip.className = "tour-tip";
 
-    tip.innerHTML =
-      "⬆️ Click these column names to sort songs, Scroll from right to left to see more columns";
+    // detect mobile
+    const isMobile =
+      window.innerWidth <= 768;
+
+    if (isMobile) {
+
+      tip.innerHTML =
+        "↔️ Swipe left and right to see more columns";
+
+    } else {
+
+      tip.innerHTML =
+        "⬆️ Click column names to sort songs";
+
+    }
 
     tip.style.top =
       (window.scrollY + rect.top - 70) + "px";
@@ -461,7 +474,7 @@ function showSortTip(id) {
 
       tip.remove();
 
-    }, 5000);
+    }, 9000);
 
   }, 300);
 
