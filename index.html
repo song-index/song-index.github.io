@@ -268,7 +268,38 @@ h1 {
   font-size: 15px;
 
 }
+.tour-tip {
 
+  position: absolute;
+
+  background: #ff9f1c;
+
+  color: black;
+
+  padding: 12px 14px;
+
+  border-radius: 12px;
+
+  font-weight: 700;
+
+  max-width: 240px;
+
+  z-index: 10000;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35);
+
+}
+
+.tour-tip::after {
+
+  content: "";
+
+  position: absolute;
+
+  border: 10px solid transparent;
+
+}
 #close-tutorial:hover {
 
   filter: brightness(1.1);
@@ -332,7 +363,17 @@ h1 {
 
 </div>
 <div id="genres-container"></div>
-
+<div
+  class="tour-tip"
+  id="search-tip"
+  style="
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+  "
+>
+  🔎 Search for songs, artists, or albums here
+</div>
 <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
@@ -716,8 +757,20 @@ document
     }
   );
 
-loadGenres();
+setTimeout(() => {
 
+  const tip =
+    document.getElementById("search-tip");
+
+  if (tip) {
+
+    tip.style.display = "none";
+
+  }
+
+}, 7000);
+
+loadGenres();
 </script>
 </body>
 </html>
