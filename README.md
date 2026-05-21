@@ -7,7 +7,7 @@ This guide is for adding new music genres or updating existing ones on the websi
 
 ## 📋 What you'll need
 - **MP3Tag** installed on your computer (free at https://www.mp3tag.de/en/)
-- Access to the GitHub repository (the DJ provided you a link)
+- Access to the GitHub repository (provided)
 - The **SongLibrary** export template installed in MP3Tag (one-time setup below)
 
 ---
@@ -48,7 +48,7 @@ The template called **"SongLibrary"** will now always be available in MP3Tag.
    - ⚠️ Apostrophes ('), Quotes ("), Weird symbols, Line breaks, might break the code for the website.
 10. Once you export it, the .csv will most likely be in the folder of songs you chose earlier.
 
-(If you want to produce more genres/playlists (.csv) close and reopen Mp3tag and repeat step 1)
+(If you want to produce more genres/playlists (.csv), select all songs (Ctrl+A), right click and select **Remove**, and repeat step 1)
 
 ---
 
