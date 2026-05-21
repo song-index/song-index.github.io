@@ -71,13 +71,17 @@ body {
 
 /* ── SONG TABLE WRAPPER ── */
 .genre-songs {
-  display: none;
-  border: 1px solid #3a2800;
+  max-height: 0;
+  overflow: hidden;
+  border: 1px solid transparent;
   border-top: none;
   border-radius: 0 0 10px 10px;
-  overflow: hidden;
+  transition: max-height 0.2s ease, border-color 0.2s ease;
 }
-.genre-songs.open { display: block; }
+.genre-songs.open {
+  max-height: 2000px;
+  border-color: #3a2800;
+}
 
 /* ── TABULATOR OVERRIDES ── */
 .genre-songs .tabulator             { border: none !important; background: #121212 !important; border-radius: 0 !important; }
@@ -259,8 +263,6 @@ async function toggleGenre(genreName) {
 
   if (cache[genreName] !== undefined) {
     renderTable(genreName, cache[genreName]);
-    // Redraw after container becomes visible (fixes blank table on expand)
-    setTimeout(() => { if (tables[genreName]) tables[genreName].redraw(true); }, 50);
     return;
   }
 
@@ -291,8 +293,6 @@ async function toggleGenre(genreName) {
 
   cache[genreName] = songs;
   renderTable(genreName, songs);
-  // Redraw after container becomes visible (fixes blank table on expand)
-  setTimeout(() => { if (tables[genreName]) tables[genreName].redraw(true); }, 50);
 }
 
 // ─── SEARCH ──────────────────────────────────────────────────────────────────
@@ -378,7 +378,7 @@ function updateStats() {
 
   buildFolders();
 
-  // Background-load all CSVs for counts
+  // Background-load all CSVs for counts and pre-build tables
   await Promise.all(genres.map(async g => {
     const { songs } = await parseCsv(g.file);
     cache[g.name] = songs;
@@ -386,6 +386,8 @@ function updateStats() {
     if (badge) badge.textContent = songs.length > 0
       ? `${songs.length} tracks`
       : '⚠️ not found';
+    // Build the Tabulator now while container exists in DOM (even if collapsed)
+    if (songs.length > 0) renderTable(g.name, songs);
   }));
 
   const total = Object.values(cache).reduce((a, b) => a + (b||[]).length, 0);
