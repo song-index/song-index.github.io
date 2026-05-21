@@ -1,627 +1,475 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Song Library</title>
 
+<link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css" rel="stylesheet"/>
 
-  <!-- Tabulator -->
-  <link
-    href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css"
-    rel="stylesheet"
-  />
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <style>
-
-    * {
-      box-sizing: border-box;
-    }
-.hero {
-  margin-bottom: 28px;
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: #0b0b0b;
+  color: #f5f5f5;
+  min-height: 100vh;
+  padding: 24px;
 }
 
+/* ── HERO ── */
+.hero { margin-bottom: 20px; }
 .hero-title {
   display: flex;
   align-items: center;
   gap: 16px;
 }
-
 .logo {
-  width: 72px !important;
-  height: 72px !important;
-
+  width: 72px; height: 72px;
   object-fit: cover;
-
   border-radius: 16px;
-
-  display: block;
-
   flex-shrink: 0;
 }
-
+.hero h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
 .hero p {
   margin-top: 8px;
   color: #ff9f1c;
-}
-body {
-  font-family: Inter, Arial, sans-serif;
-  margin: 0;
-  padding: 24px;
-
-  background: #0b0b0b;
-  color: #f5f5f5;
-}
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    #controls {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-
-    #search-input,
-    #sort-select {
-      padding: 14px 16px;
-      border: none;
-      border-radius: 14px;
-      background: #1a1a1a;
-      color: white;
-      font-size: 16px;
-      outline: none;
-    }
-
-    #search-input {
-      flex: 1;
-      min-width: 220px;
-    }
-
-    #sort-select {
-      width: 180px;
-    }
-
-    #search-input::placeholder {
-      color: #777;
-    }
-
-    /* DESKTOP TABLE */
-
-    .tabulator {
-      border: none;
-      background: #121212;
-      color: white;
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-.tabulator-header {
-  background: #1a1a1a;
-  color: #ff9f1c;
-  border: none;
-}
-
-    .tabulator-col {
-      background: #181818 !important;
-      color: white;
-      border-right: 1px solid #2a2a2a !important;
-    }
-
-    .tabulator-row {
-      background: #121212;
-      color: white;
-      min-height: 34px !important;
-      border-bottom: 1px solid #1f1f1f;
-    }
-
-.tabulator-row:nth-child(even) {
-  background: #161616;
-}
-
-.tabulator-row:hover {
-  background: #2a1a0a;
-}
-
-    .tabulator-cell {
-      border-right: 1px solid #1f1f1f !important;
-      padding: 6px 10px !important;
-    }
-
-    .tabulator-footer {
-      background: #181818;
-      border-top: 1px solid #2a2a2a;
-    }
-
-    .tabulator-page {
-      background: #242424 !important;
-      color: white !important;
-      border: none !important;
-      border-radius: 6px;
-      margin: 0 4px;
-    }
-
-    .tabulator-page.active {
-      background: white !important;
-      color: black !important;
-    }
-
-    /* MOBILE CARDS */
-
-.song-card {
-  background: #141414;
-
-  border-radius: 16px;
-
-  padding: 18px;
-  margin-bottom: 16px;
-
-  border: 1px solid #2b2b2b;
-
-  transition:
-    transform 0.15s ease,
-    background 0.15s ease;
-}
-.song-card:hover {
-  background: #1d1d1d;
-  transform: translateY(-2px);
-}
-    
-.song-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-
-  margin-bottom: 6px;
-
-  color: #ffb347;
-}
-
-    .song-artist {
-      color: #d0d0d0;
-      margin-bottom: 12px;
-    }
-
-.song-meta {
-  display: flex;
-  gap: 12px;
   font-size: 0.9rem;
-  color: #ff9f1c;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
 }
 
-    .song-album {
-      color: #777;
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
-    #search-input,
-#sort-select {
-
-  background: #151515;
+/* ── SEARCH ── */
+#search-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 14px;
+  background: #1a1a1a;
   color: white;
-
-  border: 1px solid #2a2a2a;
-
-  transition: all 0.2s ease;
+  font-size: 16px;
+  outline: none;
+  margin-bottom: 24px;
+  display: block;
 }
-    #search-input:focus,
-#sort-select:focus {
+#search-input::placeholder { color: #777; }
+#search-input:focus { box-shadow: 0 0 0 2px #ff9f1c44; }
 
-  border-color: #ff9f1c;
+/* ── GENRE FOLDER ROW ── */
+.genre-block { margin-bottom: 6px; }
 
-  box-shadow:
-    0 0 0 3px rgba(255,159,28,0.15);
+.genre-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #161616;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid #222;
+  transition: background 0.15s, border-color 0.15s;
 }
-@media (min-width: 769px) {
+.genre-header:hover { background: #1e1600; border-color: #3a2800; }
+.genre-header.open  { background: #1a1400; border-color: #3a2800; border-radius: 10px 10px 0 0; }
 
-  #sort-select {
-    display: none;
-  }
-
+.genre-icon { font-size: 1rem; flex-shrink: 0; }
+.genre-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ff9f1c;
+  flex: 1;
+  letter-spacing: 0.3px;
 }
-    @media (max-width: 768px) {
+.genre-count {
+  font-size: 0.72rem;
+  color: #666;
+  background: #1f1f1f;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-family: 'Courier New', monospace;
+}
+.genre-chevron {
+  color: #555;
+  font-size: 0.65rem;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.genre-header.open .genre-chevron { transform: rotate(180deg); }
 
-      body {
-        padding: 16px;
-      }
+/* ── SONG TABLE WRAPPER ── */
+.genre-songs {
+  display: none;
+  border: 1px solid #3a2800;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.genre-songs.open { display: block; }
 
-      h1 {
-        font-size: 2rem;
-      }
+/* ── TABULATOR OVERRIDES (matching screenshot exactly) ── */
+.genre-songs .tabulator {
+  border: none !important;
+  background: #121212 !important;
+  border-radius: 0 !important;
+}
+.genre-songs .tabulator-header {
+  background: #1a1a1a !important;
+  border-bottom: 1px solid #2a2a2a !important;
+}
+.genre-songs .tabulator-col {
+  background: #181818 !important;
+  color: #ff9f1c !important;
+  border-right: 1px solid #2a2a2a !important;
+  font-size: 0.8rem !important;
+}
+.genre-songs .tabulator-col:hover { background: #201600 !important; }
+.genre-songs .tabulator-col-title { color: #ff9f1c !important; }
+.genre-songs .tabulator-col-sorter .tabulator-arrow { border-top-color: #ff9f1c !important; border-bottom-color: #ff9f1c !important; }
 
-      #controls {
-        flex-direction: column;
-      }
+.genre-songs .tabulator-row {
+  background: #121212 !important;
+  color: #f5f5f5 !important;
+  border-bottom: 1px solid #1f1f1f !important;
+  min-height: 32px !important;
+}
+.genre-songs .tabulator-row:nth-child(even) { background: #161616 !important; }
+.genre-songs .tabulator-row:hover { background: #1e1200 !important; }
+.genre-songs .tabulator-cell {
+  border-right: 1px solid #1f1f1f !important;
+  padding: 6px 10px !important;
+  font-size: 0.85rem !important;
+}
 
-      #sort-select {
-        width: 100%;
-      }
-    }
+.genre-songs .tabulator-footer {
+  background: #181818 !important;
+  border-top: 1px solid #2a2a2a !important;
+  color: #777 !important;
+}
+.genre-songs .tabulator-page {
+  background: #242424 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 6px !important;
+  margin: 0 3px !important;
+}
+.genre-songs .tabulator-page.active {
+  background: white !important;
+  color: black !important;
+}
+.genre-songs .tabulator-page-size { background: #1a1a1a !important; color: white !important; border: 1px solid #333 !important; border-radius: 6px !important; }
 
-  </style>
+/* loading / empty */
+.genre-loading {
+  padding: 16px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #555;
+  background: #111;
+}
+
+/* search highlight */
+mark {
+  background: rgba(255,159,28,0.28);
+  color: #ffb347;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* top stats bar */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.topbar-stats {
+  font-size: 0.78rem;
+  color: #555;
+}
+.topbar-stats span { color: #ff9f1c; }
+</style>
 </head>
-
 <body>
-    <div class="hero">
 
+<div class="hero">
   <div class="hero-title">
-
-    <img
-      src="logo.png"
-      alt="Logo"
-      class="logo"
-    />
-
+    <img src="logo.png" alt="Logo" class="logo" onerror="this.style.display='none'"/>
     <h1>Song Library</h1>
-
   </div>
-
-  <p>
-    4,000+ searchable tracks
-  </p>
-
+  <p id="subtitle">Loading collection…</p>
 </div>
 
-  <div id="controls">
+<input id="search-input" type="text" placeholder="Search songs, artists, albums..."/>
 
-    <input
-      id="search-input"
-      type="text"
-      placeholder="Search songs, artists, albums..."
-    />
+<div class="topbar">
+  <div class="topbar-stats" id="stats"></div>
+</div>
 
-<select id="sort-select">
+<div id="genres-container"></div>
 
-  <option value="">Sort By</option>
+<script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script>
 
-  <option value="title-asc">
-    Title (A-Z)
-  </option>
+// ─── STATE ────────────────────────────────────────────────────────────────────
+const cache     = {};       // genreName → song[]
+const tables    = {};       // genreName → Tabulator instance
+let   genres    = [];       // loaded from genres.json
+let   searchVal = '';
 
-  <option value="title-desc">
-    Title (Z-A)
-  </option>
+// ─── UTILS ───────────────────────────────────────────────────────────────────
+function secsToMmss(val) {
+  const s = parseInt(val, 10);
+  if (isNaN(s) || s <= 0) return val || '';
+  return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+}
 
-  <option value="artist-asc">
-    Artist (A-Z)
-  </option>
+function normalizeSong(row) {
+  // Handle both comma-CSV (Title,Artist,Album,Year,Length,BPM)
+  // Length may already be mm:ss or raw seconds
+  const len = row.Length || row.length || '';
+  const normalized = /^\d+$/.test(len.trim()) ? secsToMmss(len) : len;
+  return {
+    Title:  (row.Title  || row.title  || '').trim(),
+    Artist: (row.Artist || row.artist || '').trim(),
+    Album:  (row.Album  || row.album  || '').trim(),
+    Year:   (row.Year   || row.year   || '').trim(),
+    Length: normalized,
+    BPM:    (row.BPM    || row.bpm    || '').trim(),
+  };
+}
 
-  <option value="artist-desc">
-    Artist (Z-A)
-  </option>
-
-  <option value="year-desc">
-    Year (Newest)
-  </option>
-
-  <option value="year-asc">
-    Year (Oldest)
-  </option>
-
-  <option value="bpm-desc">
-    BPM (Highest)
-  </option>
-
-  <option value="bpm-asc">
-    BPM (Lowest)
-  </option>
-
-</select>
-
-  </div>
-
-  <div id="song-table"></div>
-
-  <!-- Scripts -->
-
-  <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-
-  <script>
-
-    Papa.parse("songs.csv", {
-
+function parseCsv(file) {
+  return new Promise(resolve => {
+    Papa.parse(file, {
       download: true,
       header: true,
-
-      complete: function(results) {
-
-        const songs = results.data.filter(song => {
-
-          return (
-            song.Title &&
-            song.Title.trim() !== "" &&
-            song.Artist &&
-            song.Artist.trim() !== ""
-          );
-
-        });
-
-        const container =
-          document.getElementById("song-table");
-
-        // MOBILE VIEW
-
-        if (window.innerWidth <= 768) {
-
-          function renderCards(search = "") {
-
-            container.innerHTML = "";
-
-            const sortValue =
-              document.getElementById("sort-select").value;
-
-            let filtered = songs.filter(song => {
-
-              const s = search.toLowerCase();
-
-              return (
-                song.Title?.toLowerCase().includes(s) ||
-                song.Artist?.toLowerCase().includes(s) ||
-                song.Album?.toLowerCase().includes(s)
-              );
-
-            });
-
-            // SORTING
-if (sortValue === "title-asc") {
-
-  filtered.sort((a, b) =>
-    a.Title.localeCompare(b.Title)
-  );
-
-}
-
-if (sortValue === "title-desc") {
-
-  filtered.sort((a, b) =>
-    b.Title.localeCompare(a.Title)
-  );
-
-}
-
-if (sortValue === "artist-asc") {
-
-  filtered.sort((a, b) =>
-    a.Artist.localeCompare(b.Artist)
-  );
-
-}
-
-if (sortValue === "artist-desc") {
-
-  filtered.sort((a, b) =>
-    b.Artist.localeCompare(a.Artist)
-  );
-
-}
-
-if (sortValue === "year-asc") {
-
-  filtered.sort((a, b) =>
-    Number(a.Year) - Number(b.Year)
-  );
-
-}
-
-if (sortValue === "year-desc") {
-
-  filtered.sort((a, b) =>
-    Number(b.Year) - Number(a.Year)
-  );
-
-}
-
-if (sortValue === "bpm-asc") {
-
-  filtered.sort((a, b) =>
-    Number(a.BPM) - Number(b.BPM)
-  );
-
-}
-
-if (sortValue === "bpm-desc") {
-
-  filtered.sort((a, b) =>
-    Number(b.BPM) - Number(a.BPM)
-  );
-
-}
-
-            filtered.forEach(song => {
-
-              const card = document.createElement("div");
-
-              card.className = "song-card";
-
-              card.innerHTML = `
-                <div class="song-title">
-                  ${song.Title || ""}
-                </div>
-
-                <div class="song-artist">
-                  ${song.Artist || ""}
-                </div>
-
-                <div class="song-meta">
-                  <span>${song.Year || ""}</span>
-                  <span>${song.Length || ""}</span>
-                  <span>${song.BPM || ""} BPM</span>
-                </div>
-
-                <div class="song-album">
-                  ${song.Album || ""}
-                </div>
-              `;
-
-              container.appendChild(card);
-
-            });
-
-          }
-
-          renderCards();
-
-          // SEARCH
-
-          document
-            .getElementById("search-input")
-            .addEventListener("input", function() {
-
-              renderCards(this.value);
-
-          });
-
-          // SORT
-
-          document
-            .getElementById("sort-select")
-            .addEventListener("change", function() {
-
-              renderCards(
-                document.getElementById("search-input").value
-              );
-
-          });
-
-        }
-
-        // DESKTOP VIEW
-
-        else {
-
-          const table = new Tabulator("#song-table", {
-
-            data: songs,
-
-            layout: "fitColumns",
-
-            pagination: true,
-            paginationSize: 50,
-
-            movableColumns: true,
-
-            columns: [
-
-              {
-                title: "Title",
-                field: "Title",
-                minWidth: 220
-              },
-
-              {
-                title: "Artist",
-                field: "Artist",
-                minWidth: 220
-              },
-
-              {
-                title: "Album",
-                field: "Album",
-                minWidth: 320
-              },
-
-              {
-                title: "Year",
-                field: "Year",
-                width: 100,
-                hozAlign: "center"
-              },
-
-              {
-                title: "Length",
-                field: "Length",
-                width: 100,
-                hozAlign: "center"
-              },
-
-              {
-                title: "BPM",
-                field: "BPM",
-                width: 90,
-                hozAlign: "center"
-              }
-
-            ]
-
-          });
-
-          // SEARCH
-
-          document
-            .getElementById("search-input")
-            .addEventListener("input", function() {
-
-              const value = this.value;
-
-              table.setFilter([
-                [
-                  { field: "Title", type: "like", value: value },
-                  { field: "Artist", type: "like", value: value },
-                  { field: "Album", type: "like", value: value }
-                ]
-              ]);
-
-          });
-
-          // SORTING
-
-          document
-            .getElementById("sort-select")
-            .addEventListener("change", function() {
-
-              const value = this.value;
-
-if (!value) {
-  table.clearSort();
-  return;
-}
-
-if (value === "title-asc") {
-  table.setSort("Title", "asc");
-}
-
-if (value === "title-desc") {
-  table.setSort("Title", "desc");
-}
-
-if (value === "artist-asc") {
-  table.setSort("Artist", "asc");
-}
-
-if (value === "artist-desc") {
-  table.setSort("Artist", "desc");
-}
-
-if (value === "year-asc") {
-  table.setSort("Year", "asc");
-}
-
-if (value === "year-desc") {
-  table.setSort("Year", "desc");
-}
-
-if (value === "bpm-asc") {
-  table.setSort("BPM", "asc");
-}
-
-if (value === "bpm-desc") {
-  table.setSort("BPM", "desc");
-}
-
-          });
-
-        }
-
-      }
-
+      skipEmptyLines: true,
+      // auto-detect delimiter (handles both , and ;)
+      complete: r => {
+        const songs = r.data
+          .map(normalizeSong)
+          .filter(s => s.Title);
+        resolve(songs);
+      },
+      error: () => resolve([])
     });
+  });
+}
 
-  </script>
+// ─── BUILD FOLDER LIST ────────────────────────────────────────────────────────
+function buildFolders() {
+  const container = document.getElementById('genres-container');
+  container.innerHTML = '';
 
+  genres.forEach(g => {
+    const block = document.createElement('div');
+    block.className = 'genre-block';
+
+    const safeId = CSS.escape(g.name);
+
+    block.innerHTML = `
+      <div class="genre-header" id="hdr-${safeId}" onclick="toggleGenre('${g.name.replace(/'/g,"\\'")}')">
+        <span class="genre-icon">📁</span>
+        <span class="genre-name">${g.name}</span>
+        <span class="genre-count" id="cnt-${safeId}">—</span>
+        <span class="genre-chevron">▼</span>
+      </div>
+      <div class="genre-songs" id="songs-${safeId}">
+        <div class="genre-loading" id="tbl-${safeId}">Click to load…</div>
+      </div>`;
+
+    container.appendChild(block);
+  });
+}
+
+// ─── TABULATOR COLUMNS ────────────────────────────────────────────────────────
+const COLUMNS = [
+  { title: 'Title',  field: 'Title',  minWidth: 200 },
+  { title: 'Artist', field: 'Artist', minWidth: 180 },
+  { title: 'Album',  field: 'Album',  minWidth: 260 },
+  { title: 'Year',   field: 'Year',   width: 90,  hozAlign: 'center' },
+  { title: 'Length', field: 'Length', width: 90,  hozAlign: 'center' },
+  { title: 'BPM',    field: 'BPM',    width: 80,  hozAlign: 'center' },
+];
+
+// ─── RENDER / REFRESH TABLE ───────────────────────────────────────────────────
+function renderTable(genreName, songs) {
+  const safeId  = CSS.escape(genreName);
+  const tblDiv  = document.getElementById('tbl-' + safeId);
+  if (!tblDiv) return;
+
+  let data = songs;
+  if (searchVal) {
+    const q = searchVal.toLowerCase();
+    data = songs.filter(s =>
+      s.Title.toLowerCase().includes(q)  ||
+      s.Artist.toLowerCase().includes(q) ||
+      s.Album.toLowerCase().includes(q)
+    );
+  }
+
+  // Update badge
+  const badge = document.getElementById('cnt-' + safeId);
+  if (badge) badge.textContent = searchVal
+    ? `${data.length} / ${songs.length}`
+    : `${songs.length} tracks`;
+
+  // If Tabulator already exists, just update data
+  if (tables[genreName]) {
+    tables[genreName].setData(data);
+    return;
+  }
+
+  // Create fresh Tabulator
+  tblDiv.innerHTML = '';
+  tables[genreName] = new Tabulator(tblDiv, {
+    data,
+    layout:         'fitColumns',
+    pagination:     true,
+    paginationSize: 50,
+    movableColumns: true,
+    columns:        COLUMNS,
+  });
+}
+
+// ─── TOGGLE OPEN/CLOSE ────────────────────────────────────────────────────────
+async function toggleGenre(genreName) {
+  const safeId  = CSS.escape(genreName);
+  const hdr     = document.getElementById('hdr-'   + safeId);
+  const songs   = document.getElementById('songs-' + safeId);
+  const icon    = hdr.querySelector('.genre-icon');
+  const isOpen  = songs.classList.contains('open');
+
+  if (isOpen) {
+    hdr.classList.remove('open');
+    songs.classList.remove('open');
+    icon.textContent = '📁';
+    return;
+  }
+
+  hdr.classList.add('open');
+  songs.classList.add('open');
+  icon.textContent = '📂';
+
+  // Load CSV if not cached
+  if (!cache[genreName]) {
+    const genre = genres.find(g => g.name === genreName);
+    if (genre) {
+      document.getElementById('tbl-' + safeId).textContent = 'Loading…';
+      cache[genreName] = await parseCsv(genre.file);
+    }
+  }
+
+  renderTable(genreName, cache[genreName] || []);
+}
+
+// ─── SEARCH ──────────────────────────────────────────────────────────────────
+let searchTimer;
+document.getElementById('search-input').addEventListener('input', function () {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(async () => {
+    searchVal = this.value.trim();
+    const q   = searchVal.toLowerCase();
+
+    if (!q) {
+      // Refresh all open tables without filter
+      genres.forEach(g => {
+        if (cache[g.name]) renderTable(g.name, cache[g.name]);
+        // close folders that were force-opened by previous search
+        const safeId = CSS.escape(g.name);
+        const hdr    = document.getElementById('hdr-'   + safeId);
+        const songs  = document.getElementById('songs-' + safeId);
+        if (hdr && !hdr.dataset.manualOpen) {
+          hdr.classList.remove('open');
+          songs.classList.remove('open');
+          hdr.querySelector('.genre-icon').textContent = '📁';
+        }
+      });
+      updateStats();
+      return;
+    }
+
+    // Load all CSVs (cached after first load) and filter
+    let totalMatches = 0;
+    for (const g of genres) {
+      if (!cache[g.name]) {
+        cache[g.name] = await parseCsv(g.file);
+        const safeId = CSS.escape(g.name);
+        const badge  = document.getElementById('cnt-' + safeId);
+        if (badge) badge.textContent = `${cache[g.name].length} tracks`;
+      }
+      const matches = cache[g.name].filter(s =>
+        s.Title.toLowerCase().includes(q)  ||
+        s.Artist.toLowerCase().includes(q) ||
+        s.Album.toLowerCase().includes(q)
+      );
+
+      const safeId = CSS.escape(g.name);
+      const hdr    = document.getElementById('hdr-'   + safeId);
+      const songs  = document.getElementById('songs-' + safeId);
+      if (!hdr || !songs) continue;
+
+      if (matches.length > 0) {
+        hdr.classList.add('open');
+        songs.classList.add('open');
+        hdr.querySelector('.genre-icon').textContent = '📂';
+        renderTable(g.name, cache[g.name]);
+        totalMatches += matches.length;
+      } else {
+        hdr.classList.remove('open');
+        songs.classList.remove('open');
+        hdr.querySelector('.genre-icon').textContent = '📁';
+      }
+    }
+
+    document.getElementById('stats').innerHTML =
+      `<span>${totalMatches.toLocaleString()}</span> results for "${searchVal}"`;
+  }, 250);
+});
+
+// ─── STATS ───────────────────────────────────────────────────────────────────
+function updateStats() {
+  const total = Object.values(cache).reduce((a, b) => a + b.length, 0);
+  document.getElementById('stats').innerHTML =
+    `<span>${total.toLocaleString()}</span> tracks loaded`;
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+(async function init() {
+  // Load genres.json
+  try {
+    const res = await fetch('genres.json');
+    genres = await res.json();
+  } catch (e) {
+    document.getElementById('genres-container').innerHTML =
+      '<p style="color:#ff4444;padding:20px">Could not load genres.json</p>';
+    return;
+  }
+
+  buildFolders();
+
+  // Background-load all CSVs to populate track counts
+  const results = await Promise.all(
+    genres.map(async g => {
+      const songs = await parseCsv(g.file);
+      cache[g.name] = songs;
+      const badge = document.getElementById('cnt-' + CSS.escape(g.name));
+      if (badge) badge.textContent = `${songs.length} tracks`;
+      return songs.length;
+    })
+  );
+
+  const total = results.reduce((a, b) => a + b, 0);
+  document.getElementById('subtitle').textContent =
+    `${total.toLocaleString()} searchable tracks`;
+  document.getElementById('stats').innerHTML =
+    `<span>${total.toLocaleString()}</span> tracks across ${genres.length} genres`;
+})();
+</script>
 </body>
 </html>
