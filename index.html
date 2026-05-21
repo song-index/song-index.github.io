@@ -20,26 +20,10 @@ body {
 
 /* ── HERO ── */
 .hero { margin-bottom: 20px; }
-.hero-title {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.logo {
-  width: 72px; height: 72px;
-  object-fit: cover;
-  border-radius: 16px;
-  flex-shrink: 0;
-}
-.hero h1 {
-  font-size: 2.5rem;
-  margin: 0;
-}
-.hero p {
-  margin-top: 8px;
-  color: #ff9f1c;
-  font-size: 0.9rem;
-}
+.hero-title { display: flex; align-items: center; gap: 16px; }
+.logo { width: 72px; height: 72px; object-fit: cover; border-radius: 16px; flex-shrink: 0; }
+.hero h1 { font-size: 2.5rem; margin: 0; }
+.hero p { margin-top: 8px; color: #ff9f1c; font-size: 0.9rem; }
 
 /* ── SEARCH ── */
 #search-input {
@@ -76,27 +60,13 @@ body {
 .genre-header.open  { background: #1a1400; border-color: #3a2800; border-radius: 10px 10px 0 0; }
 
 .genre-icon { font-size: 1rem; flex-shrink: 0; }
-.genre-name {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #ff9f1c;
-  flex: 1;
-  letter-spacing: 0.3px;
-}
+.genre-name { font-size: 0.9rem; font-weight: 600; color: #ff9f1c; flex: 1; letter-spacing: 0.3px; }
 .genre-count {
-  font-size: 0.72rem;
-  color: #666;
-  background: #1f1f1f;
-  padding: 2px 8px;
-  border-radius: 20px;
-  font-family: 'Courier New', monospace;
+  font-size: 0.72rem; color: #666;
+  background: #1f1f1f; padding: 2px 8px;
+  border-radius: 20px; font-family: 'Courier New', monospace;
 }
-.genre-chevron {
-  color: #555;
-  font-size: 0.65rem;
-  transition: transform 0.2s;
-  flex-shrink: 0;
-}
+.genre-chevron { color: #555; font-size: 0.65rem; transition: transform 0.2s; flex-shrink: 0; }
 .genre-header.open .genre-chevron { transform: rotate(180deg); }
 
 /* ── SONG TABLE WRAPPER ── */
@@ -106,90 +76,32 @@ body {
   border-top: none;
   border-radius: 0 0 10px 10px;
   overflow: hidden;
-  margin-bottom: 0;
 }
 .genre-songs.open { display: block; }
 
-/* ── TABULATOR OVERRIDES (matching screenshot exactly) ── */
-.genre-songs .tabulator {
-  border: none !important;
-  background: #121212 !important;
-  border-radius: 0 !important;
-}
-.genre-songs .tabulator-header {
-  background: #1a1a1a !important;
-  border-bottom: 1px solid #2a2a2a !important;
-}
-.genre-songs .tabulator-col {
-  background: #181818 !important;
-  color: #ff9f1c !important;
-  border-right: 1px solid #2a2a2a !important;
-  font-size: 0.8rem !important;
-}
-.genre-songs .tabulator-col:hover { background: #201600 !important; }
-.genre-songs .tabulator-col-title { color: #ff9f1c !important; }
-.genre-songs .tabulator-col-sorter .tabulator-arrow { border-top-color: #ff9f1c !important; border-bottom-color: #ff9f1c !important; }
-
-.genre-songs .tabulator-row {
-  background: #121212 !important;
-  color: #f5f5f5 !important;
-  border-bottom: 1px solid #1f1f1f !important;
-  min-height: 32px !important;
-}
+/* ── TABULATOR OVERRIDES ── */
+.genre-songs .tabulator             { border: none !important; background: #121212 !important; border-radius: 0 !important; }
+.genre-songs .tabulator-header      { background: #1a1a1a !important; border-bottom: 1px solid #2a2a2a !important; }
+.genre-songs .tabulator-col         { background: #181818 !important; color: #ff9f1c !important; border-right: 1px solid #2a2a2a !important; font-size: 0.8rem !important; }
+.genre-songs .tabulator-col:hover   { background: #201600 !important; }
+.genre-songs .tabulator-col-title   { color: #ff9f1c !important; }
+.genre-songs .tabulator-row         { background: #121212 !important; color: #f5f5f5 !important; border-bottom: 1px solid #1f1f1f !important; min-height: 32px !important; }
 .genre-songs .tabulator-row:nth-child(even) { background: #161616 !important; }
-.genre-songs .tabulator-row:hover { background: #1e1200 !important; }
-.genre-songs .tabulator-cell {
-  border-right: 1px solid #1f1f1f !important;
-  padding: 6px 10px !important;
-  font-size: 0.85rem !important;
-}
+.genre-songs .tabulator-row:hover   { background: #1e1200 !important; }
+.genre-songs .tabulator-cell        { border-right: 1px solid #1f1f1f !important; padding: 6px 10px !important; font-size: 0.85rem !important; }
+.genre-songs .tabulator-footer      { background: #181818 !important; border-top: 1px solid #2a2a2a !important; color: #777 !important; }
+.genre-songs .tabulator-page        { background: #242424 !important; color: white !important; border: none !important; border-radius: 6px !important; margin: 0 3px !important; }
+.genre-songs .tabulator-page.active { background: white !important; color: black !important; }
+.genre-songs .tabulator-page-size   { background: #1a1a1a !important; color: white !important; border: 1px solid #333 !important; border-radius: 6px !important; }
 
-.genre-songs .tabulator-footer {
-  background: #181818 !important;
-  border-top: 1px solid #2a2a2a !important;
-  color: #777 !important;
-}
-.genre-songs .tabulator-page {
-  background: #242424 !important;
-  color: white !important;
-  border: none !important;
-  border-radius: 6px !important;
-  margin: 0 3px !important;
-}
-.genre-songs .tabulator-page.active {
-  background: white !important;
-  color: black !important;
-}
-.genre-songs .tabulator-page-size { background: #1a1a1a !important; color: white !important; border: 1px solid #333 !important; border-radius: 6px !important; }
+/* loading / error */
+.genre-loading { padding: 16px; text-align: center; font-size: 0.8rem; color: #555; background: #111; }
+.genre-error   { padding: 20px; text-align: center; font-size: 0.82rem; color: #ff6b6b; background: #111; }
+.genre-error code { color: #ff9f1c; font-size: 0.78rem; }
 
-/* loading / empty */
-.genre-loading {
-  padding: 16px;
-  text-align: center;
-  font-size: 0.8rem;
-  color: #555;
-  background: #111;
-}
-
-/* search highlight */
-mark {
-  background: rgba(255,159,28,0.28);
-  color: #ffb347;
-  border-radius: 2px;
-  padding: 0 1px;
-}
-
-/* top stats bar */
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-.topbar-stats {
-  font-size: 0.78rem;
-  color: #555;
-}
+/* top stats */
+.topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.topbar-stats { font-size: 0.78rem; color: #555; }
 .topbar-stats span { color: #ff9f1c; }
 </style>
 </head>
@@ -215,11 +127,12 @@ mark {
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script>
 
-// ─── STATE ────────────────────────────────────────────────────────────────────
-const cache     = {};       // genreName → song[]
-const tables    = {};       // genreName → Tabulator instance
-let   genres    = [];       // loaded from genres.json
-let   searchVal = '';
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const cache  = {};   // genreName → song[]
+const tables = {};   // genreName → Tabulator instance
+const errors = {};   // genreName → error string
+let genres   = [];
+let searchVal = '';
 
 // ─── UTILS ───────────────────────────────────────────────────────────────────
 function secsToMmss(val) {
@@ -229,16 +142,13 @@ function secsToMmss(val) {
 }
 
 function normalizeSong(row) {
-  // Handle both comma-CSV (Title,Artist,Album,Year,Length,BPM)
-  // Length may already be mm:ss or raw seconds
-  const len = row.Length || row.length || '';
-  const normalized = /^\d+$/.test(len.trim()) ? secsToMmss(len) : len;
+  const len = (row.Length || row.length || '').trim();
   return {
     Title:  (row.Title  || row.title  || '').trim(),
     Artist: (row.Artist || row.artist || '').trim(),
     Album:  (row.Album  || row.album  || '').trim(),
     Year:   (row.Year   || row.year   || '').trim(),
-    Length: normalized,
+    Length: /^\d+$/.test(len) ? secsToMmss(len) : len,
     BPM:    (row.BPM    || row.bpm    || '').trim(),
   };
 }
@@ -249,14 +159,11 @@ function parseCsv(file) {
       download: true,
       header: true,
       skipEmptyLines: true,
-      // auto-detect delimiter (handles both , and ;)
       complete: r => {
-        const songs = r.data
-          .map(normalizeSong)
-          .filter(s => s.Title);
-        resolve(songs);
+        const songs = r.data.map(normalizeSong).filter(s => s.Title);
+        resolve({ songs, error: null });
       },
-      error: () => resolve([])
+      error: err => resolve({ songs: [], error: err.message || 'File not found' })
     });
   });
 }
@@ -265,27 +172,25 @@ function parseCsv(file) {
 function buildFolders() {
   const container = document.getElementById('genres-container');
   container.innerHTML = '';
-
   genres.forEach(g => {
+    const sid = g.name.replace(/[^a-zA-Z0-9]/g, '_');
     const block = document.createElement('div');
     block.className = 'genre-block';
-
-    const safeId = CSS.escape(g.name);
-
     block.innerHTML = `
-      <div class="genre-header" id="hdr-${safeId}" onclick="toggleGenre('${g.name.replace(/'/g,"\\'")}')">
+      <div class="genre-header" id="hdr-${sid}" onclick="toggleGenre(${JSON.stringify(g.name)})">
         <span class="genre-icon">📁</span>
         <span class="genre-name">${g.name}</span>
-        <span class="genre-count" id="cnt-${safeId}">—</span>
+        <span class="genre-count" id="cnt-${sid}">—</span>
         <span class="genre-chevron">▼</span>
       </div>
-      <div class="genre-songs" id="songs-${safeId}">
-        <div class="genre-loading" id="tbl-${safeId}">Click to load…</div>
+      <div class="genre-songs" id="songs-${sid}">
+        <div class="genre-loading" id="tbl-${sid}">Click to load…</div>
       </div>`;
-
     container.appendChild(block);
   });
 }
+
+function sid(name) { return name.replace(/[^a-zA-Z0-9]/g, '_'); }
 
 // ─── TABULATOR COLUMNS ────────────────────────────────────────────────────────
 const COLUMNS = [
@@ -297,10 +202,10 @@ const COLUMNS = [
   { title: 'BPM',    field: 'BPM',    width: 80,  hozAlign: 'center' },
 ];
 
-// ─── RENDER / REFRESH TABLE ───────────────────────────────────────────────────
+// ─── RENDER TABLE ─────────────────────────────────────────────────────────────
 function renderTable(genreName, songs) {
-  const safeId  = CSS.escape(genreName);
-  const tblDiv  = document.getElementById('tbl-' + safeId);
+  const id = sid(genreName);
+  const tblDiv = document.getElementById('tbl-' + id);
   if (!tblDiv) return;
 
   let data = songs;
@@ -313,59 +218,77 @@ function renderTable(genreName, songs) {
     );
   }
 
-  // Update badge
-  const badge = document.getElementById('cnt-' + safeId);
+  const badge = document.getElementById('cnt-' + id);
   if (badge) badge.textContent = searchVal
     ? `${data.length} / ${songs.length}`
     : `${songs.length} tracks`;
 
-  // If Tabulator already exists, just update data
   if (tables[genreName]) {
     tables[genreName].setData(data);
     return;
   }
 
-  // Create fresh Tabulator
   tblDiv.innerHTML = '';
   tables[genreName] = new Tabulator(tblDiv, {
     data,
-    layout:         'fitColumns',
-    pagination:     true,
+    layout: 'fitColumns',
+    pagination: true,
     paginationSize: 50,
     movableColumns: true,
-    columns:        COLUMNS,
+    columns: COLUMNS,
   });
 }
 
 // ─── TOGGLE OPEN/CLOSE ────────────────────────────────────────────────────────
 async function toggleGenre(genreName) {
-  const safeId  = CSS.escape(genreName);
-  const hdr     = document.getElementById('hdr-'   + safeId);
-  const songs   = document.getElementById('songs-' + safeId);
-  const icon    = hdr.querySelector('.genre-icon');
-  const isOpen  = songs.classList.contains('open');
+  const id   = sid(genreName);
+  const hdr  = document.getElementById('hdr-'   + id);
+  const wrap = document.getElementById('songs-' + id);
+  const icon = hdr.querySelector('.genre-icon');
 
-  if (isOpen) {
+  if (wrap.classList.contains('open')) {
     hdr.classList.remove('open');
-    songs.classList.remove('open');
+    wrap.classList.remove('open');
     icon.textContent = '📁';
     return;
   }
 
   hdr.classList.add('open');
-  songs.classList.add('open');
+  wrap.classList.add('open');
   icon.textContent = '📂';
 
-  // Load CSV if not cached
-  if (!cache[genreName]) {
-    const genre = genres.find(g => g.name === genreName);
-    if (genre) {
-      document.getElementById('tbl-' + safeId).textContent = 'Loading…';
-      cache[genreName] = await parseCsv(genre.file);
-    }
+  if (cache[genreName] !== undefined) {
+    renderTable(genreName, cache[genreName]);
+    return;
   }
 
-  renderTable(genreName, cache[genreName] || []);
+  // Load the CSV
+  const genre = genres.find(g => g.name === genreName);
+  if (!genre) return;
+
+  document.getElementById('tbl-' + id).innerHTML =
+    '<div class="genre-loading">Loading…</div>';
+
+  const { songs, error } = await parseCsv(genre.file);
+
+  if (error || songs.length === 0) {
+    cache[genreName] = [];
+    const badge = document.getElementById('cnt-' + id);
+    if (badge) badge.textContent = '⚠️ not found';
+    document.getElementById('tbl-' + id).innerHTML = `
+      <div class="genre-error">
+        ⚠️ Could not load songs for <strong>${genreName}</strong><br><br>
+        Expected file: <code>${genre.file}</code><br><br>
+        <span style="color:#888;font-size:0.75rem;">
+          Make sure the CSV is inside the <code>csv/</code> folder on GitHub<br>
+          and the filename matches exactly (including capitals and spaces).
+        </span>
+      </div>`;
+    return;
+  }
+
+  cache[genreName] = songs;
+  renderTable(genreName, songs);
 }
 
 // ─── SEARCH ──────────────────────────────────────────────────────────────────
@@ -374,55 +297,53 @@ document.getElementById('search-input').addEventListener('input', function () {
   clearTimeout(searchTimer);
   searchTimer = setTimeout(async () => {
     searchVal = this.value.trim();
-    const q   = searchVal.toLowerCase();
+    const q = searchVal.toLowerCase();
 
     if (!q) {
-      // Refresh all open tables without filter
       genres.forEach(g => {
+        const id   = sid(g.name);
+        const hdr  = document.getElementById('hdr-'   + id);
+        const wrap = document.getElementById('songs-' + id);
+        if (!hdr) return;
+        hdr.classList.remove('open');
+        wrap.classList.remove('open');
+        hdr.querySelector('.genre-icon').textContent = '📁';
         if (cache[g.name]) renderTable(g.name, cache[g.name]);
-        // close folders that were force-opened by previous search
-        const safeId = CSS.escape(g.name);
-        const hdr    = document.getElementById('hdr-'   + safeId);
-        const songs  = document.getElementById('songs-' + safeId);
-        if (hdr && !hdr.dataset.manualOpen) {
-          hdr.classList.remove('open');
-          songs.classList.remove('open');
-          hdr.querySelector('.genre-icon').textContent = '📁';
-        }
       });
       updateStats();
       return;
     }
 
-    // Load all CSVs (cached after first load) and filter
     let totalMatches = 0;
     for (const g of genres) {
-      if (!cache[g.name]) {
-        cache[g.name] = await parseCsv(g.file);
-        const safeId = CSS.escape(g.name);
-        const badge  = document.getElementById('cnt-' + safeId);
-        if (badge) badge.textContent = `${cache[g.name].length} tracks`;
+      // Load if not yet cached
+      if (cache[g.name] === undefined) {
+        const { songs } = await parseCsv(g.file);
+        cache[g.name] = songs;
+        const badge = document.getElementById('cnt-' + sid(g.name));
+        if (badge) badge.textContent = `${songs.length} tracks`;
       }
-      const matches = cache[g.name].filter(s =>
+
+      const matches = (cache[g.name] || []).filter(s =>
         s.Title.toLowerCase().includes(q)  ||
         s.Artist.toLowerCase().includes(q) ||
         s.Album.toLowerCase().includes(q)
       );
 
-      const safeId = CSS.escape(g.name);
-      const hdr    = document.getElementById('hdr-'   + safeId);
-      const songs  = document.getElementById('songs-' + safeId);
-      if (!hdr || !songs) continue;
+      const id   = sid(g.name);
+      const hdr  = document.getElementById('hdr-'   + id);
+      const wrap = document.getElementById('songs-' + id);
+      if (!hdr || !wrap) continue;
 
       if (matches.length > 0) {
         hdr.classList.add('open');
-        songs.classList.add('open');
+        wrap.classList.add('open');
         hdr.querySelector('.genre-icon').textContent = '📂';
         renderTable(g.name, cache[g.name]);
         totalMatches += matches.length;
       } else {
         hdr.classList.remove('open');
-        songs.classList.remove('open');
+        wrap.classList.remove('open');
         hdr.querySelector('.genre-icon').textContent = '📁';
       }
     }
@@ -434,37 +355,36 @@ document.getElementById('search-input').addEventListener('input', function () {
 
 // ─── STATS ───────────────────────────────────────────────────────────────────
 function updateStats() {
-  const total = Object.values(cache).reduce((a, b) => a + b.length, 0);
+  const total = Object.values(cache).reduce((a, b) => a + (b||[]).length, 0);
   document.getElementById('stats').innerHTML =
     `<span>${total.toLocaleString()}</span> tracks loaded`;
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
 (async function init() {
-  // Load genres.json
   try {
     const res = await fetch('genres.json');
+    if (!res.ok) throw new Error('not found');
     genres = await res.json();
   } catch (e) {
     document.getElementById('genres-container').innerHTML =
-      '<p style="color:#ff4444;padding:20px">Could not load genres.json</p>';
+      '<p style="color:#ff4444;padding:20px;font-size:0.9rem;">⚠️ Could not load <code>genres.json</code>. Make sure it exists in the root of the repo.</p>';
     return;
   }
 
   buildFolders();
 
-  // Background-load all CSVs to populate track counts
-  const results = await Promise.all(
-    genres.map(async g => {
-      const songs = await parseCsv(g.file);
-      cache[g.name] = songs;
-      const badge = document.getElementById('cnt-' + CSS.escape(g.name));
-      if (badge) badge.textContent = `${songs.length} tracks`;
-      return songs.length;
-    })
-  );
+  // Background-load all CSVs for counts
+  await Promise.all(genres.map(async g => {
+    const { songs } = await parseCsv(g.file);
+    cache[g.name] = songs;
+    const badge = document.getElementById('cnt-' + sid(g.name));
+    if (badge) badge.textContent = songs.length > 0
+      ? `${songs.length} tracks`
+      : '⚠️ not found';
+  }));
 
-  const total = results.reduce((a, b) => a + b, 0);
+  const total = Object.values(cache).reduce((a, b) => a + (b||[]).length, 0);
   document.getElementById('subtitle').textContent =
     `${total.toLocaleString()} searchable tracks`;
   document.getElementById('stats').innerHTML =
