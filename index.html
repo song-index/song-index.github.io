@@ -482,6 +482,29 @@ document
         ).textContent =
           filtered.length + " tracks";
 
+        // HIDE EMPTY FOLDERS
+
+const block =
+  document
+    .getElementById(
+      "content-" + id
+    )
+    .parentElement;
+
+if (
+  value &&
+  filtered.length === 0
+) {
+
+  block.style.display = "none";
+
+} else {
+
+  block.style.display = "block";
+
+}
+        
+
         // AUTO OPEN MATCHING FOLDERS
 
         if (
