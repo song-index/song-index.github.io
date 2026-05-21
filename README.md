@@ -12,16 +12,19 @@ This guide is for adding new music genres or updating existing ones on the websi
 
 ---
 
-## ⚙️ One-Time Setup — Install the Export Template
+⚙️ One-Time Setup — Install the Export Template
 
-You only do this once, ever.
+You only do this once.
 
 1. Download the file called **`SongLibrary.mte`** from the GitHub repo
 2. Open **MP3Tag**
-3. Click the menu: **File → Export**
-4. In the Export window, click the **folder icon** (bottom left) → **Import**
+3. Press:
+   Windows + R
+4. Paste this and press enter:
+  %appdata%\Mp3tag\export
 5. Find and select the `SongLibrary.mte` file you downloaded
-6. Click **OK** — you're done!
+6. Drag and drop the **`SongLibrary.mte`** file into the folder that just opened, and you're done!
+7. Restart Mp3tag and you should be good!
 
 The template called **"SongLibrary"** will now always be available in MP3Tag.
 
@@ -42,7 +45,10 @@ The template called **"SongLibrary"** will now always be available in MP3Tag.
 9. A "Save As" box will appear — name the file the **exact same name as your music folder**
    - ✅ Example: `80s Country.csv`
    - ⚠️ Spelling and capitals must match exactly
-10. Save it somewhere easy to find (like your Desktop)
+   - ⚠️ Apostrophes ('), Quotes ("), Weird symbols, Line breaks, might break the code for the website.
+10. Once you export it, the .csv will most likely be in the folder of songs you chose earlier.
+
+(If you want to produce more genres/playlists (.csv) close and reopen Mp3tag and repeat step 1)
 
 ---
 
@@ -91,7 +97,7 @@ The template called **"SongLibrary"** will now always be available in MP3Tag.
 
 | Problem | Fix |
 |---|---|
-| Genre shows "⚠️ not found" | The CSV filename doesn't match what's in `genres.json`. Check for typos, spaces, and capitals. |
+| Genre indefinitely shows "Loading..." on website | The CSV filename doesn't match what's in `genres.json`. Check for typos, spaces, and capitals. Make sure metadata is clean.|
 | Songs are missing or wrong | Re-export from MP3Tag and re-upload the CSV file |
 | New genre doesn't appear | Make sure you saved the change to `genres.json` and waited 1 minute |
 | Website looks broken | Hard-refresh the page: press **Ctrl+Shift+R** (Windows) or **Cmd+Shift+R** (Mac) |
@@ -104,7 +110,7 @@ The template called **"SongLibrary"** will now always be available in MP3Tag.
 repo/
 ├── index.html       ← the website (never touch this)
 ├── genres.json      ← the list of genres (add one line per new genre)
-├── logo.png         ← the logo image
+├── logo.png         ← the logo image (you could change this to any 1:1 image, it just has to be named specifically "logo.png"
 └── csv/
     ├── 40s 50s Country.csv
     ├── Bob Marley.csv
@@ -113,4 +119,4 @@ repo/
 
 ---
 
-*If something isn't working, contact your web developer.*
+*If something isn't working, feel free to contact me.*
