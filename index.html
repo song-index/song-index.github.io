@@ -444,6 +444,7 @@ function toggleGenre(name) {
 
 }
 let searchTimeout;
+
 document
   .getElementById("search-input")
   .addEventListener(
@@ -479,8 +480,6 @@ document
           const songs =
             tables[genre.name] || [];
 
-          // FAST FILTER
-
           const filtered =
             value
               ? songs.filter(song => {
@@ -494,14 +493,10 @@ document
                 })
               : songs;
 
-          // UPDATE COUNT
-
           document.getElementById(
             "count-" + id
           ).textContent =
             filtered.length + " tracks";
-
-          // HIDE EMPTY FOLDERS
 
           if (
             value &&
@@ -518,211 +513,18 @@ document
 
           block.style.display = "block";
 
-          // SEARCH MODE
-
-<script>
-
-let genres = [];
-const tables = {};
-
-function safeId(name) {
-  return name.replace(/[^a-zA-Z0-9]/g, "_");
-}
-
-function getColumns() {
-
-  return [
-
-    {
-      title: "Title",
-      field: "Title",
-      minWidth: 220
-    },
-
-    {
-      title: "Artist",
-      field: "Artist",
-      minWidth: 220
-    },
-
-    {
-      title: "Album",
-      field: "Album",
-      minWidth: 300
-    },
-
-    {
-      title: "Year",
-      field: "Year",
-      width: 100,
-      hozAlign: "center"
-    },
-
-    {
-      title: "Length",
-      field: "Length",
-      width: 100,
-      hozAlign: "center"
-    },
-
-    {
-      title: "BPM",
-      field: "BPM",
-      width: 90,
-      hozAlign: "center"
-    }
-
-  ];
-
-}
-
-async function loadGenres() {
-
-  const response = await fetch("genres.json");
-
-  genres = await response.json();
-
-  buildFolders();
-
-  let totalSongs = 0;
-
-  for (const genre of genres) {
-
-    Papa.parse(genre.file, {
-
-      download: true,
-      header: true,
-      skipEmptyLines: true,
-
-      complete: function(results) {
-
-        const songs = results.data.filter(song => {
-
-          return song.Title && song.Title.trim() !== "";
-
-        });
-
-        totalSongs += songs.length;
-
-        document.getElementById(
-          "count-" + safeId(genre.name)
-        ).textContent =
-          songs.length + " tracks";
-
-        document.getElementById(
-          "subtitle"
-        ).textContent =
-          totalSongs.toLocaleString() +
-          " searchable tracks";
-
-        tables[genre.name] = songs;
-
-      }
-
-    });
-
-  }
-
-}
-
-function buildFolders() {
-
-  const container =
-    document.getElementById(
-      "genres-container"
-    );
-
-  container.innerHTML = "";
-
-  genres.forEach(genre => {
-
-    const id = safeId(genre.name);
-
-    const block =
-      document.createElement("div");
-
-    block.className = "genre-block";
-
-    block.innerHTML = `
-
-      <div
-        class="genre-header"
-        onclick="toggleGenre('${genre.name}')"
-      >
-
-        <div class="genre-icon">
-          📁
-        </div>
-
-        <div class="genre-name">
-          ${genre.name}
-        </div>
-
-        <div
-          class="genre-count"
-          id="count-${id}"
-        >
-          Loading...
-        </div>
-
-      </div>
-
-      <div
-        class="genre-content"
-        id="content-${id}"
-      >
-
-        <div id="table-${id}"></div>
-
-      </div>
-
-    `;
-
-    container.appendChild(block);
-
-  });
-
-}
-
-function toggleGenre(name) {
-
-  const id = safeId(name);
-
-  const content =
-    document.getElementById(
-      "content-" + id
-    );
-
-  const isOpen =
-    content.classList.contains("open");
-
-  if (isOpen) {
-
-    content.classList.remove("open");
-
-    return;
-
-  }
-
-  content.classList.add("open");
-
-  const existingTables =
+          let table =
   Tabulator.findTable(
     "#table-" + id
-  );
+  )[0];
 
-if (
-  existingTables &&
-  existingTables.length > 0
-) {
-  return;
-}
+if (!table) {
 
   table = new Tabulator(
     "#table-" + id,
     {
 
-      data: tables[name] || [],
+      data: filtered,
 
       layout: "fitColumns",
 
@@ -731,131 +533,62 @@ if (
 
       movableColumns: true,
 
-      columns: getColumns()
+      columns: [
+
+        {
+          title: "Title",
+          field: "Title",
+          minWidth: 220
+        },
+
+        {
+          title: "Artist",
+          field: "Artist",
+          minWidth: 220
+        },
+
+        {
+          title: "Album",
+          field: "Album",
+          minWidth: 300
+        },
+
+        {
+          title: "Year",
+          field: "Year",
+          width: 100,
+          hozAlign: "center"
+        },
+
+        {
+          title: "Length",
+          field: "Length",
+          width: 100,
+          hozAlign: "center"
+        },
+
+        {
+          title: "BPM",
+          field: "BPM",
+          width: 90,
+          hozAlign: "center"
+        }
+
+      ]
 
     }
   );
 
+} else {
+
+  table.setData(filtered);
+
 }
-
-let searchTimeout;
-
-document
-  .getElementById("search-input")
-  .addEventListener(
-    "input",
-    function() {
-
-      clearTimeout(searchTimeout);
-
-      const input = this;
-
-      searchTimeout = setTimeout(() => {
-
-        const value =
-          input.value.toLowerCase().trim();
-
-        genres.forEach(genre => {
-
-          const id =
-            safeId(genre.name);
-
-          const block =
-            document
-              .getElementById(
-                "content-" + id
-              )
-              .parentElement;
-
-          const content =
-            document.getElementById(
-              "content-" + id
-            );
-
-          const songs =
-            tables[genre.name] || [];
-
-          const filtered =
-            value
-              ? songs.filter(song => {
-
-                  return (
-                    song.Title?.toLowerCase().includes(value) ||
-                    song.Artist?.toLowerCase().includes(value) ||
-                    song.Album?.toLowerCase().includes(value)
-                  );
-
-                })
-              : songs;
-
-          // UPDATE COUNT
-
-          document.getElementById(
-            "count-" + id
-          ).textContent =
-            filtered.length + " tracks";
-
-          // HIDE EMPTY FOLDERS
-
-          if (
-            value &&
-            filtered.length === 0
-          ) {
-
-            block.style.display = "none";
-
-            content.classList.remove("open");
-
-            return;
-
-          }
-
-          block.style.display = "block";
-
-          // GET OR CREATE TABLE
-
-          let table =
-            Tabulator.findTable(
-              "#table-" + id
-            )[0];
-
-          if (!table) {
-
-            table = new Tabulator(
-              "#table-" + id,
-              {
-
-                data: filtered,
-
-                layout: "fitColumns",
-
-                pagination: true,
-                paginationSize: 50,
-
-                movableColumns: true,
-
-                columns: getColumns()
-
-              }
-            );
-
-          } else {
-
-            table.setData(filtered);
-
-          }
-
-          // SEARCH MODE
-
           if (value) {
 
             content.classList.add("open");
 
-          }
-
-          // RESET MODE
-
-          else {
+          } else {
 
             content.classList.remove("open");
 
