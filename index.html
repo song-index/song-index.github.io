@@ -4,9 +4,6 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Song Library</title>
-
-<link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css" rel="stylesheet"/>
-
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,95 +15,123 @@ body {
   padding: 24px;
 }
 
-/* ── HERO ── */
+/* HERO */
 .hero { margin-bottom: 20px; }
 .hero-title { display: flex; align-items: center; gap: 16px; }
 .logo { width: 72px; height: 72px; object-fit: cover; border-radius: 16px; flex-shrink: 0; }
-.hero h1 { font-size: 2.5rem; margin: 0; }
+.hero h1 { font-size: 2.5rem; }
 .hero p { margin-top: 8px; color: #ff9f1c; font-size: 0.9rem; }
 
-/* ── SEARCH ── */
+/* SEARCH */
 #search-input {
-  width: 100%;
-  padding: 14px 16px;
-  border: none;
-  border-radius: 14px;
-  background: #1a1a1a;
-  color: white;
-  font-size: 16px;
-  outline: none;
-  margin-bottom: 24px;
-  display: block;
+  width: 100%; padding: 14px 16px;
+  border: none; border-radius: 14px;
+  background: #1a1a1a; color: white;
+  font-size: 16px; outline: none;
+  margin-bottom: 20px; display: block;
 }
 #search-input::placeholder { color: #777; }
 #search-input:focus { box-shadow: 0 0 0 2px #ff9f1c44; }
 
-/* ── GENRE FOLDER ROW ── */
+/* STATS */
+#stats { font-size: 0.78rem; color: #555; margin-bottom: 16px; }
+#stats span { color: #ff9f1c; }
+
+/* GENRE BLOCK */
 .genre-block { margin-bottom: 6px; }
 
 .genre-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  background: #161616;
-  border-radius: 10px;
-  cursor: pointer;
-  user-select: none;
-  border: 1px solid #222;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; background: #161616;
+  border-radius: 10px; cursor: pointer;
+  user-select: none; border: 1px solid #222;
   transition: background 0.15s, border-color 0.15s;
 }
 .genre-header:hover { background: #1e1600; border-color: #3a2800; }
 .genre-header.open  { background: #1a1400; border-color: #3a2800; border-radius: 10px 10px 0 0; }
 
 .genre-icon { font-size: 1rem; flex-shrink: 0; }
-.genre-name { font-size: 0.9rem; font-weight: 600; color: #ff9f1c; flex: 1; letter-spacing: 0.3px; }
+.genre-name { font-size: 0.9rem; font-weight: 600; color: #ff9f1c; flex: 1; }
 .genre-count {
-  font-size: 0.72rem; color: #666;
-  background: #1f1f1f; padding: 2px 8px;
-  border-radius: 20px; font-family: 'Courier New', monospace;
+  font-size: 0.72rem; color: #666; background: #1f1f1f;
+  padding: 2px 8px; border-radius: 20px; font-family: monospace;
 }
-.genre-chevron { color: #555; font-size: 0.65rem; transition: transform 0.2s; flex-shrink: 0; }
+.genre-chevron { color: #555; font-size: 0.65rem; transition: transform 0.2s; }
 .genre-header.open .genre-chevron { transform: rotate(180deg); }
 
-/* ── SONG TABLE WRAPPER ── */
+/* SONGS PANEL */
 .genre-songs {
-  max-height: 0;
-  overflow: hidden;
-  border: 1px solid transparent;
+  display: none;
+  border: 1px solid #3a2800;
   border-top: none;
   border-radius: 0 0 10px 10px;
-  transition: max-height 0.2s ease, border-color 0.2s ease;
+  overflow: hidden;
 }
-.genre-songs.open {
-  max-height: 2000px;
-  border-color: #3a2800;
-}
+.genre-songs.open { display: block; }
 
-/* ── TABULATOR OVERRIDES ── */
-.genre-songs .tabulator             { border: none !important; background: #121212 !important; border-radius: 0 !important; }
-.genre-songs .tabulator-header      { background: #1a1a1a !important; border-bottom: 1px solid #2a2a2a !important; }
-.genre-songs .tabulator-col         { background: #181818 !important; color: #ff9f1c !important; border-right: 1px solid #2a2a2a !important; font-size: 0.8rem !important; }
-.genre-songs .tabulator-col:hover   { background: #201600 !important; }
-.genre-songs .tabulator-col-title   { color: #ff9f1c !important; }
-.genre-songs .tabulator-row         { background: #121212 !important; color: #f5f5f5 !important; border-bottom: 1px solid #1f1f1f !important; min-height: 32px !important; }
-.genre-songs .tabulator-row:nth-child(even) { background: #161616 !important; }
-.genre-songs .tabulator-row:hover   { background: #1e1200 !important; }
-.genre-songs .tabulator-cell        { border-right: 1px solid #1f1f1f !important; padding: 6px 10px !important; font-size: 0.85rem !important; }
-.genre-songs .tabulator-footer      { background: #181818 !important; border-top: 1px solid #2a2a2a !important; color: #777 !important; }
-.genre-songs .tabulator-page        { background: #242424 !important; color: white !important; border: none !important; border-radius: 6px !important; margin: 0 3px !important; }
-.genre-songs .tabulator-page.active { background: white !important; color: black !important; }
-.genre-songs .tabulator-page-size   { background: #1a1a1a !important; color: white !important; border: 1px solid #333 !important; border-radius: 6px !important; }
+/* TABLE */
+.song-table {
+  width: 100%; border-collapse: collapse;
+  table-layout: fixed;
+}
+.song-table thead tr { background: #1a1a1a; }
+.song-table thead th {
+  padding: 8px 10px; text-align: left;
+  font-size: 0.78rem; color: #ff9f1c;
+  border-right: 1px solid #2a2a2a;
+  border-bottom: 1px solid #2a2a2a;
+  cursor: pointer; user-select: none;
+  white-space: nowrap; font-weight: 600;
+}
+.song-table thead th:hover { background: #201600; }
+.song-table thead th.sort-asc::after  { content: ' ▲'; font-size: 0.6rem; }
+.song-table thead th.sort-desc::after { content: ' ▼'; font-size: 0.6rem; }
+
+.song-table tbody tr { background: #121212; }
+.song-table tbody tr:nth-child(even) { background: #161616; }
+.song-table tbody tr:hover { background: #1e1200; }
+.song-table tbody td {
+  padding: 6px 10px; font-size: 0.85rem;
+  border-right: 1px solid #1f1f1f;
+  border-bottom: 1px solid #1f1f1f;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.song-table td.c-year,
+.song-table td.c-len,
+.song-table td.c-bpm { text-align: center; color: #aaa; font-family: monospace; font-size: 0.8rem; }
+.song-table td.c-bpm { color: #ff7a00; }
+.song-table td.c-artist { color: #ccc; }
+.song-table td.c-album  { color: #777; font-style: italic; }
+
+/* column widths */
+.col-title  { width: 26%; }
+.col-artist { width: 22%; }
+.col-album  { width: 32%; }
+.col-year   { width: 7%; }
+.col-len    { width: 7%; }
+.col-bpm    { width: 6%; }
+
+/* PAGINATION */
+.pager {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 14px; background: #181818;
+  border-top: 1px solid #2a2a2a; justify-content: flex-end;
+}
+.pager button {
+  padding: 4px 10px; background: #242424; color: #ccc;
+  border: none; border-radius: 6px; cursor: pointer; font-size: 0.8rem;
+}
+.pager button:hover { background: #333; }
+.pager button.active { background: white; color: black; font-weight: 700; }
+.pager button:disabled { opacity: 0.3; cursor: default; }
+.pager-info { font-size: 0.75rem; color: #555; margin-right: auto; }
 
 /* loading / error */
-.genre-loading { padding: 16px; text-align: center; font-size: 0.8rem; color: #555; background: #111; }
-.genre-error   { padding: 20px; text-align: center; font-size: 0.82rem; color: #ff6b6b; background: #111; }
-.genre-error code { color: #ff9f1c; font-size: 0.78rem; }
+.msg { padding: 18px; text-align: center; font-size: 0.82rem; background: #111; }
+.msg.error { color: #ff6b6b; }
+.msg.loading { color: #555; }
 
-/* top stats */
-.topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-.topbar-stats { font-size: 0.78rem; color: #555; }
-.topbar-stats span { color: #ff9f1c; }
+mark { background: rgba(255,159,28,0.3); color: #ffb347; border-radius: 2px; padding: 0 1px; }
 </style>
 </head>
 <body>
@@ -120,32 +145,28 @@ body {
 </div>
 
 <input id="search-input" type="text" placeholder="Search songs, artists, albums..."/>
-
-<div class="topbar">
-  <div class="topbar-stats" id="stats"></div>
-</div>
-
+<div id="stats"></div>
 <div id="genres-container"></div>
 
-<script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script>
 
-// ─── STATE ───────────────────────────────────────────────────────────────────
-const cache  = {};   // genreName → song[]
-const tables = {};   // genreName → Tabulator instance
-const errors = {};   // genreName → error string
-let genres   = [];
+const PAGE_SIZE = 50;
+const cache = {};         // name -> songs[]
+const state = {};         // name -> { page, sortCol, sortDir, filtered }
+let genres = [];
 let searchVal = '';
 
-// ─── UTILS ───────────────────────────────────────────────────────────────────
-function secsToMmss(val) {
-  const s = parseInt(val, 10);
-  if (isNaN(s) || s <= 0) return val || '';
-  return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+// ── UTILS ────────────────────────────────────────────────────────────────────
+function sid(name) { return name.replace(/[^a-zA-Z0-9]/g, '_'); }
+
+function secsToMmss(v) {
+  const s = parseInt(v, 10);
+  if (isNaN(s) || s <= 0) return v || '';
+  return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
 }
 
-function normalizeSong(row) {
+function norm(row) {
   const len = (row.Length || row.length || '').trim();
   return {
     Title:  (row.Title  || row.title  || '').trim(),
@@ -157,93 +178,161 @@ function normalizeSong(row) {
   };
 }
 
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function hi(s) {
+  if (!searchVal) return esc(s);
+  const re = new RegExp('(' + searchVal.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + ')', 'gi');
+  return esc(s).replace(re, '<mark>$1</mark>');
+}
+
 function parseCsv(file) {
   return new Promise(resolve => {
     Papa.parse(file, {
-      download: true,
-      header: true,
-      skipEmptyLines: true,
-      complete: r => {
-        const songs = r.data.map(normalizeSong).filter(s => s.Title);
-        resolve({ songs, error: null });
-      },
-      error: err => resolve({ songs: [], error: err.message || 'File not found' })
+      download: true, header: true, skipEmptyLines: true,
+      complete: r => resolve({ songs: r.data.map(norm).filter(s=>s.Title), error: null }),
+      error:    e => resolve({ songs: [], error: e.message || 'error' })
     });
   });
 }
 
-// ─── BUILD FOLDER LIST ────────────────────────────────────────────────────────
+// ── BUILD FOLDER LIST ────────────────────────────────────────────────────────
 function buildFolders() {
-  const container = document.getElementById('genres-container');
-  container.innerHTML = '';
+  const c = document.getElementById('genres-container');
+  c.innerHTML = '';
   genres.forEach(g => {
-    const sid = g.name.replace(/[^a-zA-Z0-9]/g, '_');
+    const id = sid(g.name);
     const block = document.createElement('div');
     block.className = 'genre-block';
     block.innerHTML = `
-      <div class="genre-header" id="hdr-${sid}" onclick="toggleGenre(${JSON.stringify(g.name)})">
+      <div class="genre-header" id="hdr-${id}" onclick="toggleGenre(${JSON.stringify(g.name)})">
         <span class="genre-icon">📁</span>
-        <span class="genre-name">${g.name}</span>
-        <span class="genre-count" id="cnt-${sid}">—</span>
+        <span class="genre-name">${esc(g.name)}</span>
+        <span class="genre-count" id="cnt-${id}">—</span>
         <span class="genre-chevron">▼</span>
       </div>
-      <div class="genre-songs" id="songs-${sid}">
-        <div class="genre-loading" id="tbl-${sid}">Click to load…</div>
+      <div class="genre-songs" id="songs-${id}">
+        <div class="msg loading">Click to load…</div>
       </div>`;
-    container.appendChild(block);
+    c.appendChild(block);
   });
 }
 
-function sid(name) { return name.replace(/[^a-zA-Z0-9]/g, '_'); }
+// ── RENDER TABLE ─────────────────────────────────────────────────────────────
+function renderTable(genreName) {
+  const id   = sid(genreName);
+  const wrap = document.getElementById('songs-' + id);
+  if (!wrap) return;
 
-// ─── TABULATOR COLUMNS ────────────────────────────────────────────────────────
-const COLUMNS = [
-  { title: 'Title',  field: 'Title',  minWidth: 200 },
-  { title: 'Artist', field: 'Artist', minWidth: 180 },
-  { title: 'Album',  field: 'Album',  minWidth: 260 },
-  { title: 'Year',   field: 'Year',   width: 90,  hozAlign: 'center' },
-  { title: 'Length', field: 'Length', width: 90,  hozAlign: 'center' },
-  { title: 'BPM',    field: 'BPM',    width: 80,  hozAlign: 'center' },
-];
+  const st = state[genreName];
+  const songs = cache[genreName] || [];
 
-// ─── RENDER TABLE ─────────────────────────────────────────────────────────────
-function renderTable(genreName, songs) {
-  const id = sid(genreName);
-  const tblDiv = document.getElementById('tbl-' + id);
-  if (!tblDiv) return;
+  // Filter
+  const q = searchVal.toLowerCase();
+  st.filtered = q
+    ? songs.filter(s =>
+        s.Title.toLowerCase().includes(q) ||
+        s.Artist.toLowerCase().includes(q) ||
+        s.Album.toLowerCase().includes(q))
+    : [...songs];
 
-  let data = songs;
-  if (searchVal) {
-    const q = searchVal.toLowerCase();
-    data = songs.filter(s =>
-      s.Title.toLowerCase().includes(q)  ||
-      s.Artist.toLowerCase().includes(q) ||
-      s.Album.toLowerCase().includes(q)
-    );
+  // Sort
+  if (st.sortCol) {
+    st.filtered.sort((a, b) => {
+      let va = a[st.sortCol]||'', vb = b[st.sortCol]||'';
+      if (st.sortCol === 'Year' || st.sortCol === 'BPM') {
+        va = parseFloat(va)||0; vb = parseFloat(vb)||0;
+        return st.sortDir === 'asc' ? va-vb : vb-va;
+      }
+      return st.sortDir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+    });
   }
 
+  // Badge
   const badge = document.getElementById('cnt-' + id);
-  if (badge) badge.textContent = searchVal
-    ? `${data.length} / ${songs.length}`
+  if (badge) badge.textContent = q
+    ? `${st.filtered.length} / ${songs.length}`
     : `${songs.length} tracks`;
 
-  if (tables[genreName]) {
-    tables[genreName].setData(data);
-    return;
-  }
+  // Clamp page
+  const totalPages = Math.max(1, Math.ceil(st.filtered.length / PAGE_SIZE));
+  if (st.page > totalPages) st.page = totalPages;
 
-  tblDiv.innerHTML = '';
-  tables[genreName] = new Tabulator(tblDiv, {
-    data,
-    layout: 'fitColumns',
-    pagination: true,
-    paginationSize: 50,
-    movableColumns: true,
-    columns: COLUMNS,
-  });
+  const start = (st.page - 1) * PAGE_SIZE;
+  const page  = st.filtered.slice(start, start + PAGE_SIZE);
+
+  // Column headers
+  const cols = [
+    { key:'Title',  label:'Title',  cls:'col-title'  },
+    { key:'Artist', label:'Artist', cls:'col-artist' },
+    { key:'Album',  label:'Album',  cls:'col-album'  },
+    { key:'Year',   label:'Year',   cls:'col-year'   },
+    { key:'Length', label:'Length', cls:'col-len'    },
+    { key:'BPM',    label:'BPM',    cls:'col-bpm'    },
+  ];
+
+  const thead = cols.map(c => {
+    let s = '';
+    if (st.sortCol === c.key) s = st.sortDir === 'asc' ? ' sort-asc' : ' sort-desc';
+    return `<th class="${s}" onclick="sortTable(${JSON.stringify(genreName)},${JSON.stringify(c.key)})">${c.label}</th>`;
+  }).join('');
+
+  const tdCls = ['','c-artist','c-album','c-year','c-len','c-bpm'];
+  const rows = page.length
+    ? page.map(s => '<tr>' + cols.map((c,i) => {
+        const val = s[c.key]||'';
+        const content = i < 3 ? hi(val) : esc(val);
+        return `<td class="${tdCls[i]}" title="${esc(val)}">${content}</td>`;
+      }).join('') + '</tr>').join('')
+    : `<tr><td colspan="6" style="text-align:center;padding:16px;color:#555;">No results</td></tr>`;
+
+  // Pagination buttons
+  let pagerHTML = `<span class="pager-info">Showing ${st.filtered.length > 0 ? start+1 : 0}–${Math.min(start+PAGE_SIZE, st.filtered.length)} of ${st.filtered.length}</span>`;
+  pagerHTML += `<button onclick="goPage(${JSON.stringify(genreName)},1)" ${st.page===1?'disabled':''}>First</button>`;
+  pagerHTML += `<button onclick="goPage(${JSON.stringify(genreName)},${st.page-1})" ${st.page===1?'disabled':''}>Prev</button>`;
+
+  // page number buttons (show up to 5 around current)
+  const range = 2;
+  for (let p = Math.max(1,st.page-range); p <= Math.min(totalPages,st.page+range); p++) {
+    pagerHTML += `<button class="${p===st.page?'active':''}" onclick="goPage(${JSON.stringify(genreName)},${p})">${p}</button>`;
+  }
+  pagerHTML += `<button onclick="goPage(${JSON.stringify(genreName)},${st.page+1})" ${st.page===totalPages?'disabled':''}>Next</button>`;
+  pagerHTML += `<button onclick="goPage(${JSON.stringify(genreName)},${totalPages})" ${st.page===totalPages?'disabled':''}>Last</button>`;
+
+  wrap.innerHTML = `
+    <table class="song-table">
+      <colgroup>
+        <col class="col-title"><col class="col-artist"><col class="col-album">
+        <col class="col-year"><col class="col-len"><col class="col-bpm">
+      </colgroup>
+      <thead><tr>${thead}</tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="pager">${pagerHTML}</div>`;
 }
 
-// ─── TOGGLE OPEN/CLOSE ────────────────────────────────────────────────────────
+// ── SORT ─────────────────────────────────────────────────────────────────────
+function sortTable(genreName, col) {
+  const st = state[genreName];
+  if (st.sortCol === col) {
+    st.sortDir = st.sortDir === 'asc' ? 'desc' : 'asc';
+  } else {
+    st.sortCol = col; st.sortDir = 'asc';
+  }
+  st.page = 1;
+  renderTable(genreName);
+}
+
+// ── PAGINATION ────────────────────────────────────────────────────────────────
+function goPage(genreName, page) {
+  state[genreName].page = page;
+  renderTable(genreName);
+  document.getElementById('hdr-' + sid(genreName)).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── TOGGLE ────────────────────────────────────────────────────────────────────
 async function toggleGenre(genreName) {
   const id   = sid(genreName);
   const hdr  = document.getElementById('hdr-'   + id);
@@ -261,43 +350,39 @@ async function toggleGenre(genreName) {
   wrap.classList.add('open');
   icon.textContent = '📂';
 
+  // Already loaded
   if (cache[genreName] !== undefined) {
-    renderTable(genreName, cache[genreName]);
+    renderTable(genreName);
     return;
   }
 
-  // Load the CSV
+  // Load CSV
+  wrap.innerHTML = '<div class="msg loading">Loading…</div>';
   const genre = genres.find(g => g.name === genreName);
-  if (!genre) return;
-
-  document.getElementById('tbl-' + id).innerHTML =
-    '<div class="genre-loading">Loading…</div>';
-
   const { songs, error } = await parseCsv(genre.file);
 
   if (error || songs.length === 0) {
     cache[genreName] = [];
     const badge = document.getElementById('cnt-' + id);
     if (badge) badge.textContent = '⚠️ not found';
-    document.getElementById('tbl-' + id).innerHTML = `
-      <div class="genre-error">
-        ⚠️ Could not load songs for <strong>${genreName}</strong><br><br>
-        Expected file: <code>${genre.file}</code><br><br>
-        <span style="color:#888;font-size:0.75rem;">
-          Make sure the CSV is inside the <code>csv/</code> folder on GitHub<br>
-          and the filename matches exactly (including capitals and spaces).
-        </span>
-      </div>`;
+    wrap.innerHTML = `<div class="msg error">
+      ⚠️ Could not load <strong>${esc(genreName)}</strong><br><br>
+      Expected: <code style="color:#ff9f1c">${esc(genre.file)}</code><br>
+      <span style="color:#666;font-size:0.75rem;margin-top:6px;display:block;">
+        Check the file is in the <code>csv/</code> folder with the exact filename above.
+      </span>
+    </div>`;
     return;
   }
 
   cache[genreName] = songs;
-  renderTable(genreName, songs);
+  state[genreName] = { page: 1, sortCol: null, sortDir: 'asc', filtered: [] };
+  renderTable(genreName);
 }
 
-// ─── SEARCH ──────────────────────────────────────────────────────────────────
+// ── SEARCH ───────────────────────────────────────────────────────────────────
 let searchTimer;
-document.getElementById('search-input').addEventListener('input', function () {
+document.getElementById('search-input').addEventListener('input', function() {
   clearTimeout(searchTimer);
   searchTimer = setTimeout(async () => {
     searchVal = this.value.trim();
@@ -305,31 +390,34 @@ document.getElementById('search-input').addEventListener('input', function () {
 
     if (!q) {
       genres.forEach(g => {
-        const id   = sid(g.name);
-        const hdr  = document.getElementById('hdr-'   + id);
-        const wrap = document.getElementById('songs-' + id);
+        const id  = sid(g.name);
+        const hdr = document.getElementById('hdr-' + id);
+        const wrap= document.getElementById('songs-' + id);
         if (!hdr) return;
         hdr.classList.remove('open');
         wrap.classList.remove('open');
         hdr.querySelector('.genre-icon').textContent = '📁';
-        if (cache[g.name]) renderTable(g.name, cache[g.name]);
+        if (cache[g.name] && state[g.name]) {
+          state[g.name].page = 1;
+          renderTable(g.name);
+        }
       });
       updateStats();
       return;
     }
 
-    let totalMatches = 0;
+    let total = 0;
     for (const g of genres) {
-      // Load if not yet cached
       if (cache[g.name] === undefined) {
         const { songs } = await parseCsv(g.file);
         cache[g.name] = songs;
+        state[g.name] = { page:1, sortCol:null, sortDir:'asc', filtered:[] };
         const badge = document.getElementById('cnt-' + sid(g.name));
         if (badge) badge.textContent = `${songs.length} tracks`;
       }
 
-      const matches = (cache[g.name] || []).filter(s =>
-        s.Title.toLowerCase().includes(q)  ||
+      const matches = (cache[g.name]||[]).filter(s =>
+        s.Title.toLowerCase().includes(q) ||
         s.Artist.toLowerCase().includes(q) ||
         s.Album.toLowerCase().includes(q)
       );
@@ -337,62 +425,58 @@ document.getElementById('search-input').addEventListener('input', function () {
       const id   = sid(g.name);
       const hdr  = document.getElementById('hdr-'   + id);
       const wrap = document.getElementById('songs-' + id);
-      if (!hdr || !wrap) continue;
+      if (!hdr) continue;
 
       if (matches.length > 0) {
         hdr.classList.add('open');
         wrap.classList.add('open');
         hdr.querySelector('.genre-icon').textContent = '📂';
-        renderTable(g.name, cache[g.name]);
-        totalMatches += matches.length;
+        state[g.name].page = 1;
+        renderTable(g.name);
+        total += matches.length;
       } else {
         hdr.classList.remove('open');
         wrap.classList.remove('open');
         hdr.querySelector('.genre-icon').textContent = '📁';
       }
     }
-
     document.getElementById('stats').innerHTML =
-      `<span>${totalMatches.toLocaleString()}</span> results for "${searchVal}"`;
+      `<span>${total.toLocaleString()}</span> results for "${esc(searchVal)}"`;
   }, 250);
 });
 
-// ─── STATS ───────────────────────────────────────────────────────────────────
+// ── STATS ────────────────────────────────────────────────────────────────────
 function updateStats() {
-  const total = Object.values(cache).reduce((a, b) => a + (b||[]).length, 0);
+  const total = Object.values(cache).reduce((a,b)=>a+(b||[]).length,0);
   document.getElementById('stats').innerHTML =
     `<span>${total.toLocaleString()}</span> tracks loaded`;
 }
 
-// ─── INIT ────────────────────────────────────────────────────────────────────
+// ── INIT ─────────────────────────────────────────────────────────────────────
 (async function init() {
   try {
     const res = await fetch('genres.json');
-    if (!res.ok) throw new Error('not found');
+    if (!res.ok) throw new Error();
     genres = await res.json();
-  } catch (e) {
+  } catch {
     document.getElementById('genres-container').innerHTML =
-      '<p style="color:#ff4444;padding:20px;font-size:0.9rem;">⚠️ Could not load <code>genres.json</code>. Make sure it exists in the root of the repo.</p>';
+      '<p style="color:#ff4444;padding:20px">⚠️ Could not load genres.json</p>';
     return;
   }
 
   buildFolders();
 
-  // Background-load all CSVs for counts and pre-build tables
+  // Background load all CSVs for track counts
   await Promise.all(genres.map(async g => {
     const { songs } = await parseCsv(g.file);
     cache[g.name] = songs;
+    state[g.name] = { page:1, sortCol:null, sortDir:'asc', filtered:[] };
     const badge = document.getElementById('cnt-' + sid(g.name));
-    if (badge) badge.textContent = songs.length > 0
-      ? `${songs.length} tracks`
-      : '⚠️ not found';
-    // Build the Tabulator now while container exists in DOM (even if collapsed)
-    if (songs.length > 0) renderTable(g.name, songs);
+    if (badge) badge.textContent = songs.length > 0 ? `${songs.length} tracks` : '⚠️ not found';
   }));
 
-  const total = Object.values(cache).reduce((a, b) => a + (b||[]).length, 0);
-  document.getElementById('subtitle').textContent =
-    `${total.toLocaleString()} searchable tracks`;
+  const total = Object.values(cache).reduce((a,b)=>a+(b||[]).length,0);
+  document.getElementById('subtitle').textContent = `${total.toLocaleString()} searchable tracks`;
   document.getElementById('stats').innerHTML =
     `<span>${total.toLocaleString()}</span> tracks across ${genres.length} genres`;
 })();
