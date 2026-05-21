@@ -1,14 +1,191 @@
+﻿
 Title,Artist,Album,Year,Length,BPM
-Crazy Baldhead,Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1976,3:23,126
-Easy Skanking,Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1978,2:56,81
-Keep on Moving,Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1977,4:22,79
-Natural Mystic,Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1977,3:27,80
-One Drop,Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1977,3:52,60
-Pimper's Paradise,Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1976,3:28,78
-Rebel's Hop,Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1970,2:38,73
-"Roots, Rock, Reggae",Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1976,3:31,76
-So Much Trouble in the World,Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1979,3:58,78
-Sun Is Shining,Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1971,4:36,76
-Trenchtown Rock [Live] [Live],Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1973,4:12,83
-War,Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1976,3:32,77
-Who the Cap Fit,Bob Marley & the Wailers,Natural Mystic: The Legend Lives On [Bonus Tracks],1976,4:17,79
+
+
+"Slave Driver - (Live) (doubletime)","Bob Marley & the Wailers","Burnin' [Deluxe Edition] Disc 2","1973","3:41","154"
+
+"Rastaman Chant (8ct Looper)","Bob Marley & Busta Rhymes","Chant Down Babylon","1999","4:18","95"
+
+"400 Years (30 Year Version)","Bob Marley & The Wailers","30 Years Ago","","2:35","106"
+
+"Adam And Eve","Bob Marley & The Wailers","30 Years Ago","","3:09","112"
+
+"Africa Unite","Bob Marley & the Wailers","Survival [Bonus Track]","2001","2:56","127"
+
+"African Herbsman (30 Year Version)","Bob Marley & The Wailers","30 Years Ago","","2:26","108"
+
+"All In One (Medley) [4 phrase]","Bob Marley & The Wailers","30 Years Ago","","3:37","94"
+
+"Bend Down Low (4 Phrase)","Bob Marley & the Wailers","Natty Dread [Expanded]","1974","3:22","88"
+
+"Blackman Redemption","Bob Marley & the Wailers","Confrontation [Bonus Track]","2001","3:34","126"
+
+"Buffalo Soldier (doubletime)","Bob Marley & the Wailers","Legend","1984","4:17","124"
+
+"Burnin And Lootin' (live) (doubletime)","Bob Marley & the Wailers","Burnin' [Deluxe Edition] Disc 2","1973","6:29","81"
+
+"Caution (30 Year Version)","Bob Marley & The Wailers","30 Years Ago","","2:44","112"
+
+"Chant Down Babylon (doubletime)","Bob Marley & the Wailers","Confrontation [Bonus Track]","2001","2:37","143"
+
+"Coming in from the Cold (doubletime)","Bob Marley & the Wailers","Uprising [Bonus Tracks]","2001","4:31","142"
+
+"Concrete Jungle","Bob Marley & the Wailers","Catch a Fire","1973","4:14","96"
+
+"Could You Be Loved","Bob Marley & the Wailers","Legend","1984","3:55","103"
+
+"Dem Crazy - Running Away (doubletime) 129 bpm","Bob Marley & the Wailers","Bob Marley Live!","","9:20","129"
+
+"Crazy Baldhead","Bob Marley & the Wailers","Natural Mystic: The Legend Lives On [Bonus Tracks]","2002","3:23","126"
+
+"Crisis (doubletime)","Bob Marley & the Wailers","Kaya","1978","3:55","123"
+
+"Cry to Me (4 Phrase)","Bob Marley & the Wailers","Rastaman Vibration","1976","2:36","94"
+
+"Don't Rock My Boat (30 Year Version)","Bob Marley & The Wailers","30 Years Ago","","4:31","147"
+
+"Downpresser (30 Year Version) (4 phrase)","Bob Marley & The Wailers","30 Years Ago","","3:08","87"
+
+"Duppy Conqueror [30 Years Version] (Dj Cut 2023)","Bob Marley & The Wailers","30 Years Ago","","3:41","90"
+
+"Duppy Conqueror (doubletime)","Bob Marley & the Wailers","Burnin' [Expanded]","1973","3:47","143"
+
+"Easy Skanking","Bob Marley & the Wailers","Natural Mystic: The Legend Lives On [Bonus Tracks]","2002","2:56","126"
+
+"Exodus - (Live) (doubletime)","Bob Marley & the Wailers","Bob Marley Live!","","11:47","146"
+
+"Exodus","Bob Marley & the Wailers","Legend","1984","7:35","133"
+
+"Forever Loving Jah (Doubletime)","Bob Marley & the Wailers","Uprising [Bonus Tracks]","2001","4:02","141"
+
+"Fussing And Fighting (30 Year Version)","Bob Marley & The Wailers","30 Years Ago","","2:28","93"
+
+"Get Up, Stand Up (Doubletime)","Bob Marley & the Wailers","Legend","1984","3:17","156"
+
+"Hypocrites (30 Year Version)","Bob Marley & The Wailers","30 Years Ago","","2:39","159"
+
+"I Shot the Sheriff (Original)[Dj cut 2023] 2.0 {4 Phrase}","Bob Marley & the Wailers","Legend","1984","4:50","95"
+
+"Is This Love","Bob Marley & the Wailers","Legend","1984","3:52","122"
+
+"Jammin'","Bob Marley & the Wailers","Legend","1984","3:31","124"
+
+"Jamming' - (Live)","Bob Marley & the Wailers","Bob Marley Live!","","7:06","132"
+
+"Jump Nyabinghi (doubletime)","Bob Marley & the Wailers","Confrontation [Bonus Track]","2001","3:45","142"
+
+"Kaya","Bob Marley & the Wailers","Kaya","1978","3:16","97"
+
+"Keep On Moving (30 Years Version)[Dj Special 2023)","Bob Marley & The Wailers","30 Years Ago","","3:12","80"
+
+"Keep on Moving (Dj Cut) (Doubletime)","Bob Marley & the Wailers","Natural Mystic: The Legend Lives On [Bonus Tracks]","2002","4:21","148"
+
+"Keep on Moving - (Live) (doubletime)","Bob Marley & the Wailers","Bob Marley Live!","","6:25","148"
+
+"Keep on Moving - 74 (Doubletime)","Bob Marley & the Wailers","Natural Mystic: The Legend Lives On [Bonus Tracks]","2002","4:22","148"
+
+"Keep on Skanking (Dj Cut2023) [4 Phrase]","Bob Marley & The Wailers","30 Years Ago","","3:18","87"
+
+"Lively Up Yourself - (Live) (doubletime)[SLOW START!!!]","Bob Marley & the Wailers","Burnin' [Deluxe Edition] Disc 2","1973","7:30","83"
+
+"Long, Long Winter","Bob Marley & The Wailers","30 Years Ago","","2:59","99"
+
+"Midnight Ravers (doubletime)","Bob Marley & the Wailers","Catch a Fire","1973","5:08","139"
+
+"Mix Up, Mix Up (4 Phrase)","Bob Marley & the Wailers","Confrontation (2013 Remaster)","1983","5:02","88"
+
+"More Axe","Bob Marley & The Wailers","30 Years Ago","","3:32","106"
+
+"Mr. Brown (4 phrase)","Bob Marley & The Wailers","30 Years Ago","","3:36","93"
+
+"Natty Dread (4 Phrase)[Slow start]","Bob Marley & the Wailers","Natty Dread [Expanded]","1974","3:36","88"
+
+"Natural Mystic","Bob Marley & the Wailers","Natural Mystic: The Legend Lives On [Bonus Tracks]","2002","3:27","130"
+
+"Nightshift","Bob Marley & the Wailers","Rastaman Vibration","1976","3:11","136"
+
+"No More Trouble (doubletime)","Bob Marley & the Wailers","Catch a Fire","1973","4:00","142"
+
+"No Woman, No Cry (4 phrase)","Bob Marley & the Wailers","Legend","1984","7:07","157"
+
+"No Woman, No Cry","Bob Marley & the Wailers","Natty Dread [Expanded]","1974","3:46","98"
+
+"One Draw (70s) {4 Phrase Doubletime}","Rita Marley","Who Feels It Knows It","1981","4:26","89"
+
+"One Draw (80s) {4 Phrase Doubletime}","Rita Marley","Who Feels It Knows It","1981","4:26","89"
+
+"One Drop (121bpm)","Bob Marley & the Wailers","Natural Mystic: The Legend Lives On [Bonus Tracks]","2002","3:52","121"
+
+"One In All (Medley) (30 Years Version)[Dj Cut 2023]","Bob Marley & The Wailers","30 Years Ago","","2:01","92"
+
+"One Love/People Get Ready (4 Phrase)","Bob Marley & the Wailers","Legend","1984","2:52","151"
+
+"Pimper's Paradise (Dj Cut) (doubletime 4 phrase)","Bob Marley & the Wailers","Natural Mystic: The Legend Lives On [Bonus Tracks]","2002","3:34","134"
+
+"Punky Reggae Party (DUB) (77 Lee Perry Sessions)","Bob Marley & the Wailers","Exodus (Deluxe Edition) Disc","","8:50","135"
+
+"Put It On","Bob Marley & the Wailers","Burnin' [Expanded]","1973","4:01","90"
+
+"Reaction","Bob Marley & The Wailers","30 Years Ago","","2:44","102"
+
+"Real Situation","Bob Marley & the Wailers","Uprising [Bonus Tracks]","2001","3:08","131"
+
+"Redemption Song [Band Version][*]","Bob Marley & the Wailers","Uprising [Bonus Tracks]","2001","4:51","117"
+
+"Roots, Rock, Reggae","Bob Marley & the Wailers","Natural Mystic: The Legend Lives On [Bonus Tracks]","2002","3:31","139"
+
+"Run For Cover (30 Years Version)[4 Phrase]","Bob Marley & The Wailers","30 Years Ago","","3:07","95"
+
+"Satisfy My Soul","Bob Marley & the Wailers","Legend","1984","4:32","127"
+
+"Slogans","Bob Marley & the Wailers","Africa Unite: The Singles Collection","2005","4:00","140"
+
+"Small Axe (Dj Cut 20203)[4 Phrase]","Bob Marley & the Wailers","Burnin' [Expanded]","1973","3:50","91"
+
+"So Much Things to Say","Bob Marley & the Wailers","Exodus","1977","3:08","124"
+
+"So Much Trouble in the World (doubletime)","Bob Marley & the Wailers","Natural Mystic: The Legend Lives On [Bonus Tracks]","2002","3:58","156"
+
+"Soul Almighty (30 Year Version)[Dj Cut 2023)","Bob Marley & The Wailers","30 Years Ago","","2:50","100"
+
+"Soul Rebel (30 Year Version)","Bob Marley & The Wailers","30 Years Ago","","3:21","94"
+
+"Soul Rebel","Bob Marley & the Wailers","Africa Unite: The Singles Collection","2005","3:18","93"
+
+"Stand Up Jamrock (doubletime 4 8cts)","Bob Marley & the Wailers/The Wailers","Africa Unite: The Singles Collection","2005","5:46","153"
+
+"Stir It Up (4 phrase Doubletime)","Bob Marley & the Wailers","Legend","1984","5:34","147"
+
+"Stop That Train - (Live) (doubletime)","Bob Marley & the Wailers","Burnin' [Deluxe Edition] Disc 2","1973","3:58","82"
+
+"Survival","Bob Marley & the Wailers","Survival [Bonus Track]","2001","3:54","142"
+
+"The Heathen - (Live) (doubletime)","Bob Marley & the Wailers","Bob Marley Live!","","6:47","151"
+
+"The Heathen (doubletime)","Bob Marley & the Wailers","Exodus","1977","2:32","135"
+
+"Three Little Birds (doubletime)","Bob Marley & the Wailers","Legend","1984","3:00","147"
+
+"Trenchtown Rock [Live] [Doubletime) (ends @ 85bpm)","Bob Marley & the Wailers","Natural Mystic: The Legend Lives On [Bonus Tracks]","2002","4:12","155"
+
+"Turn Me Loose (30 Year Version)","Bob Marley & The Wailers","30 Years Ago","","2:36","105"
+
+"Waiting in Vain (4 Phrase)","Bob Marley & the Wailers","Legend","1984","4:16","158"
+
+"Wake Up and Live","Bob Marley & the Wailers","Survival [Bonus Track]","2001","5:01","134"
+
+"War (doubletime)","Bob Marley & the Wailers","Natural Mystic: The Legend Lives On [Bonus Tracks]","2002","3:32","146"
+
+"War - No More Trouble - (Live) (Doubletime)","Bob Marley & the Wailers","Bob Marley Live!","","7:43","159"
+
+"We and Dem (doubletime)","Bob Marley & the Wailers","Uprising [Bonus Tracks]","2001","3:15","146"
+
+"Who the Cap Fit","Bob Marley & the Wailers","Natural Mystic: The Legend Lives On [Bonus Tracks]","2002","4:17","138"
+
+"Wisdom","Bob Marley & The Wailers","30 Years Ago","","3:16","113"
+
+"You Can't Blame the Youth (live) (doubletime)","Bob Marley/Peter Tosh","Burnin' [Deluxe Edition] Disc 2","1973","4:00","82"
+
+"Zimbabwe","Bob Marley & the Wailers","Survival [Bonus Track]","2001","3:51","125"
+
+"Zion Train","Bob Marley & the Wailers","Uprising [Bonus Tracks]","2001","3:37","128"
