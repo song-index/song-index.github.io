@@ -513,19 +513,28 @@ document
 
         else if (!value) {
 
-          if (
-            Tabulator.findTable(
-              "#table-" + id
-            )[0]
-          ) {
+  // SHOW ALL FOLDERS AGAIN
 
-            Tabulator.findTable(
-              "#table-" + id
-            )[0].setData(songs);
+  document
+    .getElementById(
+      "content-" + id
+    )
+    .parentElement
+    .style.display = "block";
 
-          }
+  if (
+    Tabulator.findTable(
+      "#table-" + id
+    )[0]
+  ) {
 
-        }
+    Tabulator.findTable(
+      "#table-" + id
+    )[0].setData(songs);
+
+  }
+
+}
 
       });
 
