@@ -418,10 +418,17 @@ function buildFolders() {
 
 function showSortTip(id) {
 
-  const oldTip =
-    document.getElementById(
-      "sort-tip"
+  // how many times shown before
+  let shownCount =
+    parseInt(
+      localStorage.getItem("sortTipShown") || "0"
     );
+
+  // stop after 2 times
+  if (shownCount >= 2) return;
+
+  const oldTip =
+    document.getElementById("sort-tip");
 
   if (oldTip) {
     oldTip.remove();
@@ -446,7 +453,6 @@ function showSortTip(id) {
 
     tip.className = "tour-tip";
 
-    // detect mobile
     const isMobile =
       window.innerWidth <= 768;
 
@@ -469,6 +475,12 @@ function showSortTip(id) {
       (window.scrollX + rect.left + 20) + "px";
 
     document.body.appendChild(tip);
+
+    // increase count
+    localStorage.setItem(
+      "sortTipShown",
+      shownCount + 1
+    );
 
     setTimeout(() => {
 
