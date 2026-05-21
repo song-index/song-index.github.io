@@ -43,5 +43,6 @@
   { "name": "Sports - Mens",           "file": "csv/Sports - Mens.csv" },
   { "name": "Sports - Womens",         "file": "csv/Sports - Womens.csv" },
   { "name": "Steel Pulse",             "file": "csv/Steel Pulse.csv" },
-  { "name": "TV's Greatest",           "file": "csv/TV's Greatest.csv" }
+  { "name": "TVs Greatest",            "file": "csv/TVs Greatest.csv" }
 ]
+
