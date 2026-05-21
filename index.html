@@ -446,122 +446,176 @@ function toggleGenre(name) {
 
 document
   .getElementById("search-input")
-  .addEventListener(
-    "input",
-    function() {
+  .addEventListener("input", function () {
 
-      const value =
-        this.value.toLowerCase();
+    const value = this.value.toLowerCase().trim();
 
-      genres.forEach(genre => {
+    genres.forEach(genre => {
 
-        const id =
-          safeId(genre.name);
+      const id = safeId(genre.name);
 
-        const content =
-          document.getElementById(
-            "content-" + id
+      const block =
+        document
+          .getElementById("content-" + id)
+          .parentElement;
+
+      const content =
+        document.getElementById("content-" + id);
+
+      const songs =
+        tables[genre.name] || [];
+
+      const filtered =
+        songs.filter(song => {
+
+          return (
+            song.Title?.toLowerCase().includes(value) ||
+            song.Artist?.toLowerCase().includes(value) ||
+            song.Album?.toLowerCase().includes(value)
           );
-
-        const songs =
-          tables[genre.name] || [];
-
-        const filtered =
-          songs.filter(song => {
-
-            return (
-              song.Title?.toLowerCase().includes(value) ||
-              song.Artist?.toLowerCase().includes(value) ||
-              song.Album?.toLowerCase().includes(value)
-            );
 
         });
 
-        document.getElementById(
-          "count-" + id
-        ).textContent =
-          filtered.length + " tracks";
+      // UPDATE COUNT
 
-        // HIDE EMPTY FOLDERS
+      document.getElementById(
+        "count-" + id
+      ).textContent =
+        filtered.length + " tracks";
 
-const block =
-  document
-    .getElementById(
-      "content-" + id
-    )
-    .parentElement;
+      // HIDE EMPTY FOLDERS
 
-if (
-  value &&
-  filtered.length === 0
-) {
+      if (
+        value &&
+        filtered.length === 0
+      ) {
 
-  block.style.display = "none";
+        block.style.display = "none";
 
-} else {
+        content.classList.remove("open");
 
-  block.style.display = "block";
+        return;
 
-}
-        
+      } else {
 
-        // AUTO OPEN MATCHING FOLDERS
+        block.style.display = "block";
+
+      }
+
+      // SEARCH ACTIVE
+
+      if (
+        value &&
+        filtered.length > 0
+      ) {
+
+        content.classList.add("open");
+
+        // CREATE TABLE IF NEEDED
 
         if (
-          value &&
-          filtered.length > 0
+          content.dataset.loaded !== "true"
         ) {
 
-          content.classList.add("open");
+          new Tabulator(
+            "#table-" + id,
+            {
 
-          // CREATE TABLE IF NEEDED
+              data: filtered,
 
-          if (
-            content.dataset.loaded !== "true"
-          ) {
+              layout: "fitColumns",
 
-            toggleGenre(genre.name);
+              pagination: true,
+              paginationSize: 50,
 
-          }
+              movableColumns: true,
 
-          // FILTER TABLE
+              columns: [
 
-          Tabulator.findTable(
-            "#table-" + id
-          )[0].setData(filtered);
+                {
+                  title: "Title",
+                  field: "Title",
+                  minWidth: 220
+                },
+
+                {
+                  title: "Artist",
+                  field: "Artist",
+                  minWidth: 220
+                },
+
+                {
+                  title: "Album",
+                  field: "Album",
+                  minWidth: 300
+                },
+
+                {
+                  title: "Year",
+                  field: "Year",
+                  width: 100,
+                  hozAlign: "center"
+                },
+
+                {
+                  title: "Length",
+                  field: "Length",
+                  width: 100,
+                  hozAlign: "center"
+                },
+
+                {
+                  title: "BPM",
+                  field: "BPM",
+                  width: 90,
+                  hozAlign: "center"
+                }
+
+              ]
+
+            }
+          );
+
+          content.dataset.loaded = "true";
 
         }
 
-        // RESET WHEN SEARCH CLEARED
+        const table =
+          Tabulator.findTable(
+            "#table-" + id
+          )[0];
 
-        else if (!value) {
+        if (table) {
 
-  // SHOW ALL FOLDERS AGAIN
+          table.setData(filtered);
 
-  document
-    .getElementById(
-      "content-" + id
-    )
-    .parentElement
-    .style.display = "block";
+        }
 
-  if (
-    Tabulator.findTable(
-      "#table-" + id
-    )[0]
-  ) {
+      }
 
-    Tabulator.findTable(
-      "#table-" + id
-    )[0].setData(songs);
+      // SEARCH CLEARED
 
-  }
+      else {
 
-}
+        content.classList.remove("open");
 
-      });
+        const table =
+          Tabulator.findTable(
+            "#table-" + id
+          )[0];
+
+        if (table) {
+
+          table.setData(songs);
+
+        }
+
+      }
+
+    });
 
   });
+
 loadGenres();
 
 </script>
