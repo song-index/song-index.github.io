@@ -40,8 +40,6 @@
   { "name": "Metal",                   "file": "csv/Metal.csv" },
   { "name": "Old School Reggae",       "file": "csv/Old School Reggae.csv" },
   { "name": "Peter Tosh",              "file": "csv/Peter Tosh.csv" },
-  { "name": "Sports - Mens",           "file": "csv/Sports - Mens.csv" },
-  { "name": "Sports - Womens",         "file": "csv/Sports - Womens.csv" },
   { "name": "Steel Pulse",             "file": "csv/Steel Pulse.csv" },
   { "name": "TVs Greatest",            "file": "csv/TVs Greatest.csv" }
 ]
