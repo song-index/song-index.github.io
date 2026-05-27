@@ -1,2 +1,4 @@
 $filename(csv,utf-8)Song Title,Artists,BPM,Comments,Length
+$loop(%_path%)
 "%title%","%artist%","%bpm%","%comment%","$div(%_length_seconds%,60):$num($mod(%_length_seconds%,60),2)"
+$loopend()
