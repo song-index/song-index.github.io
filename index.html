@@ -512,14 +512,14 @@ function createTable(id, songs) {
 
   {
     title: "Song Title",
-    field: "Title",
+    field: "Song Title",
     minWidth: 320
   },
 
   {
     title: "Artists",
-    field: "Artist",
-    minWidth: 320
+    field: "Artists",
+    minWidth: 260
   },
 
   {
@@ -632,9 +632,9 @@ document
                 ? songs.filter(song => {
 
                     return (
-                      song.Title?.toLowerCase().includes(value) ||
-                      song.Artist?.toLowerCase().includes(value) ||
-                      song.Album?.toLowerCase().includes(value)
+song["Song Title"]?.toLowerCase().includes(value) ||
+song["Artists"]?.toLowerCase().includes(value) ||
+song["Comments"]?.toLowerCase().includes(value)
                     );
 
                   })
