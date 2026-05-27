@@ -273,8 +273,8 @@ async function loadGenres() {
             results.data.filter(song => {
 
               return (
-                song.Title &&
-                song.Title.trim() !== ""
+                song["Song Title"] &&
+                song["Song Title"].trim() !== ""
               );
 
             });
@@ -404,13 +404,13 @@ function createTable(id, songs) {
 
         {
           title: "Song Title",
-          field: "Title",
+          field: "Song Title",
           minWidth: 320
         },
 
         {
           title: "Artists",
-          field: "Artist",
+          field: "Artists",
           minWidth: 260
         },
 
@@ -525,9 +525,9 @@ document
 
         return (
 
-          song["Title"]?.toLowerCase().includes(value) ||
+          song["Song Title"]?.toLowerCase().includes(value) ||
 
-          song["Artist"]?.toLowerCase().includes(value) ||
+          song["Artists"]?.toLowerCase().includes(value) ||
 
           song["Comments"]?.toLowerCase().includes(value)
 
