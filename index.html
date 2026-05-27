@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Song Library</title>
+<title>Flashbacks Song Library</title>
 
 <link
   href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css"
@@ -52,6 +52,36 @@ body {
 h1 {
   font-size: 2.5rem;
   margin: 0;
+  line-height: 1.1;
+}
+
+.hero-eyebrow {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ff9f1c;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 2px;
+}
+
+.instructions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  background: #161616;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid #ff9f1c;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  color: #bbb;
+  max-width: 640px;
+}
+
+.instructions-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
 /* SEARCH */
@@ -211,20 +241,26 @@ h1 {
       onerror="this.style.display='none'"
     />
 
-    <h1>Song Library</h1>
+    <div>
+      <div class="hero-eyebrow">Welcome to</div>
+      <h1>Flashbacks</h1>
+    </div>
 
   </div>
 
-  <p id="subtitle">
-    Loading collection...
-  </p>
+  <p id="subtitle">Loading collection...</p>
+
+  <div class="instructions">
+    <span class="instructions-icon">🎵</span>
+    <span>Browse by genre below, or use the search bar to find a song or artist across the entire library.</span>
+  </div>
 
 </div>
 
 <input
   id="search-input"
   type="text"
-  placeholder="Search songs, artists, albums..."
+  placeholder="🔍  Search songs, artists, comments..."
 />
 
 <div id="genres-container"></div>
@@ -405,19 +441,13 @@ function createTable(id, songs) {
         {
           title: "Song Title",
           field: "Song Title",
-          minWidth: 320
+          minWidth: 280
         },
 
         {
           title: "Artists",
           field: "Artists",
-          minWidth: 260
-        },
-
-        {
-          title: "Comments",
-          field: "Comments",
-          minWidth: 320
+          minWidth: 220
         },
 
         {
@@ -428,11 +458,17 @@ function createTable(id, songs) {
         },
 
         {
+          title: "Comments",
+          field: "Comments",
+          minWidth: 260
+        },
+
+        {
           title: "Length",
           field: "Length",
           width: 100,
           hozAlign: "center"
-        }
+        },
 
       ]
 
