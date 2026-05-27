@@ -146,6 +146,8 @@ h1 {
 .genre-content {
   display: none;
   margin-top: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .genre-content.open {
@@ -426,9 +428,7 @@ function createTable(id, songs) {
 
       data: songs,
 
-      layout: "fitColumns",
-
-      responsiveLayout: "collapse",
+      layout: "fitDataFill",
 
       pagination: true,
 
@@ -447,7 +447,7 @@ function createTable(id, songs) {
         {
           title: "Artists",
           field: "Artists",
-          minWidth: 220
+          minWidth: 110
         },
 
         {
