@@ -208,7 +208,13 @@ h1 {
 }
 
 
-/* MOBILE */
+.instructions-mobile { display: none; }
+.instructions-desktop { display: inline; }
+
+@media (max-width: 768px) {
+  .instructions-mobile { display: inline; }
+  .instructions-desktop { display: none; }
+}
 
 @media (max-width: 768px) {
 
@@ -254,7 +260,8 @@ h1 {
 
   <div class="instructions">
     <span class="instructions-icon">🎵</span>
-    <span>Browse by genre below, or use the search bar to find a song or artist across the entire library.</span>
+    <span class="instructions-desktop">Browse by genre below, or use the search bar to find a song or artist across the entire library. Click any column header to sort.</span>
+    <span class="instructions-mobile">Browse by genre below, or search to find a song or artist. Scroll left ← right to see all columns. Tap any column header to sort.</span>
   </div>
 
 </div>
