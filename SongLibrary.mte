@@ -1,2 +1,2 @@
-$filename(csv,utf-8)Title,Artist,Album,Year,Length,BPM
-"%title%","%artist%","%album%","%year%","$div(%_length_seconds%,60):$num($mod(%_length_seconds%,60),2)","%bpm%"
+$filename(csv,utf-8)Title,Artist,Comments,BPM,Length
+"%title%","%artist%","%comment%","%bpm%","$div(%_length_seconds%,60):$num($mod(%_length_seconds%,60),2)"
