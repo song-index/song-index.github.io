@@ -1,23 +1,22 @@
-﻿
-Title,Artist,Album,Year,Length,BPM
+﻿Song Title,Artists,BPM,Comments,Length
 
+"Asche Zu ASche","Ramstein","","                            ","3:53"
 
-"Asche Zu ASche","Ramstein","Rammstein","    ","3:53",""
+"Engel","Rammstein","","                              ","4:24"
 
-"Engel","Rammstein","Rammstein;","    ","4:24",""
+"Enter Sandman","Metalica","124","                              ","5:32"
 
-"Enter Sandman","Metalica","Metallica","    ","5:32","124"
+"King Nothing","Metallica","112","                            ","5:31"
 
-"King Nothing","Metallica","Load","1996","5:31","112"
+"Snap Your Fingers...","Prong","137","                            ","4:11"
 
-"Snap Your Fingers...","Prong","Prong","1994","4:11","137"
+"Speedfreak  (1980's)","Motörhead","133","","3:21"
 
-"Speedfreak  (1980's)","Motörhead","Class Metal","","3:21","133"
+"Switchback","Biohazard","90","                            ","3:34"
 
-"Switchback","Biohazard","New World Disorder","2000","3:34","90"
+"Through the Never (98bpms)","Metallica","98","                              ","4:02"
 
-"Through the Never (98bpms)","Metallica","Metallica - Black Album","    ","4:02","98"
+"Walk (116bpms)","Pantera","116","                            ","5:14"
 
-"Walk (116bpms)","Pantera","Vulgar Display of Power","1992","5:14","116"
+"Where Ever I May Roam","Metallica","131","                              ","6:44"
 
-"Where Ever I May Roam","Metallica","Metallica","1999","6:44","131"
