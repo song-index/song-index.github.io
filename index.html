@@ -175,30 +175,6 @@ h1 {
   color: black !important;
 }
 
-/* TOUR TIPS */
-
-.tour-tip {
-
-  position: absolute;
-
-  background: #ff9f1c;
-
-  color: black;
-
-  padding: 12px 14px;
-
-  border-radius: 12px;
-
-  font-weight: 700;
-
-  max-width: 260px;
-
-  z-index: 10000;
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.35);
-
-}
 
 /* MOBILE */
 
@@ -253,17 +229,6 @@ h1 {
 
 <div id="genres-container"></div>
 
-<div
-  class="tour-tip"
-  id="search-tip"
-  style="
-    top: 140px;
-    left: 50%;
-    transform: translateX(-50%);
-  "
->
-  🔎 Search for songs, artists, or albums here
-</div>
 
 <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
 
@@ -416,81 +381,6 @@ function buildFolders() {
 
 }
 
-function showSortTip(id) {
-
-  // how many times shown before
-  let shownCount =
-    parseInt(
-      localStorage.getItem("sortTipShown") || "0"
-    );
-
-  // stop after 2 times
-  if (shownCount >= 2) return;
-
-  const oldTip =
-    document.getElementById("sort-tip");
-
-  if (oldTip) {
-    oldTip.remove();
-  }
-
-  setTimeout(() => {
-
-    const header =
-      document.querySelector(
-        "#table-" + id + " .tabulator-header"
-      );
-
-    if (!header) return;
-
-    const rect =
-      header.getBoundingClientRect();
-
-    const tip =
-      document.createElement("div");
-
-    tip.id = "sort-tip";
-
-    tip.className = "tour-tip";
-
-    const isMobile =
-      window.innerWidth <= 768;
-
-    if (isMobile) {
-
-      tip.innerHTML =
-        "↔️ Swipe left and right to see more columns, Tap to sort by!";
-
-    } else {
-
-      tip.innerHTML =
-        "⬆️ Click column names to sort songs";
-
-    }
-
-    tip.style.top =
-      (window.scrollY + rect.top - 70) + "px";
-
-    tip.style.left =
-      (window.scrollX + rect.left + 20) + "px";
-
-    document.body.appendChild(tip);
-
-    // increase count
-    localStorage.setItem(
-      "sortTipShown",
-      shownCount + 1
-    );
-
-    setTimeout(() => {
-
-      tip.remove();
-
-    }, 9000);
-
-  }, 300);
-
-}
 
 function createTable(id, songs) {
 
@@ -502,6 +392,8 @@ function createTable(id, songs) {
 
       layout: "fitColumns",
 
+      responsiveLayout: "collapse",
+
       pagination: true,
 
       paginationSize: 50,
@@ -510,39 +402,40 @@ function createTable(id, songs) {
 
       columns: [
 
-  {
-    title: "Song Title",
-    field: "Song Title",
-    minWidth: 320
-  },
+        {
+          title: "Song Title",
+          field: "Title",
+          minWidth: 320
+        },
 
-  {
-    title: "Artists",
-    field: "Artists",
-    minWidth: 260
-  },
+        {
+          title: "Artists",
+          field: "Artist",
+          minWidth: 260
+        },
 
-  {
-    title: "Comments",
-    field: "Comments",
-    minWidth: 320
-  },
+        {
+          title: "Comments",
+          field: "Comments",
+          minWidth: 320
+        },
 
-  {
-    title: "BPM",
-    field: "BPM",
-    width: 90,
-    hozAlign: "center"
-  },
+        {
+          title: "BPM",
+          field: "BPM",
+          width: 90,
+          hozAlign: "center"
+        },
 
-  {
-    title: "Length",
-    field: "Length",
-    width: 100,
-    hozAlign: "center"
-  }
+        {
+          title: "Length",
+          field: "Length",
+          width: 100,
+          hozAlign: "center"
+        }
 
-]
+      ]
+
     }
   );
 
@@ -583,7 +476,6 @@ function toggleGenre(name) {
 
   }
 
-  showSortTip(id);
 
 }
 
@@ -628,18 +520,22 @@ document
               tables[genre.name] || [];
 
             const filtered =
-              value
-                ? songs.filter(song => {
+  value
+    ? songs.filter(song => {
 
-                    return (
-song["Song Title"]?.toLowerCase().includes(value) ||
-song["Artists"]?.toLowerCase().includes(value) ||
-song["Comments"]?.toLowerCase().includes(value)
-                    );
+        return (
 
-                  })
-                : songs;
+          song["Title"]?.toLowerCase().includes(value) ||
 
+          song["Artist"]?.toLowerCase().includes(value) ||
+
+          song["Comments"]?.toLowerCase().includes(value)
+
+        );
+
+      })
+
+    : songs;
             document.getElementById(
               "count-" + id
             ).textContent =
@@ -697,20 +593,6 @@ song["Comments"]?.toLowerCase().includes(value)
 
   );
 
-setTimeout(() => {
-
-  const tip =
-    document.getElementById(
-      "search-tip"
-    );
-
-  if (tip) {
-
-    tip.remove();
-
-  }
-
-}, 11000);
 
 loadGenres();
 
