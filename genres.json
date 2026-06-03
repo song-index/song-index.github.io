@@ -42,6 +42,7 @@
   { "name": "Peter Tosh",              "file": "csv/Peter Tosh.csv" },
   { "name": "Steel Pulse",             "file": "csv/Steel Pulse.csv" },
   { "name": "TVs Greatest",            "file": "csv/TVs Greatest.csv" },
-    { "name": "Classical",            "file": "csv/Classical.csv" }
+    { "name": "Classical",            "file": "csv/Classical.csv" },    
+  { "name": "Sports - Womens",            "file": "csv/Sports - Womens.csv" }
 ]
 
